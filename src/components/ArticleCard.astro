@@ -23,28 +23,48 @@ const image = heroImage || ogImage || '';
 
 <a
 	href={href}
-	class={`group block bg-white border border-[#E5E5E5] overflow-hidden transition hover:border-[#165E83] no-underline ${size === 'large' ? 'md:flex' : ''}`}
+	class:list={[
+		'card-bizin group block bg-white border border-[#E5E5E5] overflow-hidden no-underline',
+		size === 'large' ? 'md:flex' : '',
+	]}
 >
-	<div class={`aspect-video bg-[#FAFAF7] overflow-hidden ${size === 'large' ? 'md:w-1/2 md:aspect-auto' : ''}`}>
+	<div class:list={['aspect-video bg-[#E8EEF7] overflow-hidden relative', size === 'large' ? 'md:w-1/2 md:aspect-auto' : '']}>
 		{image ? (
-			<img src={image} alt={title} loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+			<img src={image} alt={title} loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.05]" />
 		) : (
-			<div class="w-full h-full flex items-center justify-center text-[#6B6B6B] text-xs tracking-widest font-light">{categoryLabel.toUpperCase()}</div>
+			<div class="w-full h-full flex items-center justify-center text-[#1D4F91] text-[11px] tracking-[0.3em] font-medium">
+				{categoryLabel.toUpperCase()}
+			</div>
 		)}
 	</div>
-	<div class={`p-5 ${size === 'large' ? 'md:w-1/2 md:p-8 md:flex md:flex-col md:justify-center' : ''}`}>
-		<div class="text-[12px] text-[#6B6B6B] tracking-wider font-light mb-3">
-			<span class="text-[#165E83]">{categoryLabel}</span>
-			<span class="mx-2">·</span>
-			<time>{formattedDate}</time>
-			{isPR && <span class="ml-2 inline-block px-1.5 py-0.5 border border-[#E5E5E5] text-[10px]">PR</span>}
+	<div class:list={['p-6', size === 'large' ? 'md:w-1/2 md:p-10 md:flex md:flex-col md:justify-center' : '']}>
+		<div class="text-[12px] tracking-wider mb-4 flex items-center gap-2 flex-wrap">
+			<span class="text-[#1D4F91] font-medium uppercase tracking-[0.15em]">{categoryLabel}</span>
+			<span class="text-[#E5E5E5]">·</span>
+			<time class="text-[#6B6B6B] font-normal">{formattedDate}</time>
+			{isPR && <span class="ml-1 inline-block px-1.5 py-0.5 border border-[#1D4F91] text-[10px] text-[#1D4F91] tracking-wider">PR</span>}
 		</div>
-		<h3 class={`${size === 'large' ? 'text-xl md:text-2xl' : 'text-base'} font-normal text-[#1A1A1A] leading-snug mb-3 transition group-hover:text-[#165E83]`}>{title}</h3>
+		<h3 class:list={[
+			size === 'large' ? 'text-[22px] md:text-[26px] leading-[1.4]' : 'text-[18px] leading-[1.5]',
+			'font-medium text-[#1A1A1A] mb-3 transition-colors group-hover:text-[#1D4F91]',
+		]}>{title}</h3>
 		{description && (
-			<p class="text-[13px] text-[#6B6B6B] leading-relaxed line-clamp-2 font-light">{description}</p>
+			<p class="text-[14px] text-[#6B6B6B] leading-[1.7] line-clamp-2 font-normal">{description}</p>
 		)}
-		<div class="mt-4 text-[13px] text-[#1A1A1A] font-light tracking-wide group-hover:text-[#165E83] transition">
-			{lang === 'ja' ? '読む' : 'Read'} →
+		<div class="mt-6 text-[13px] tracking-[0.1em] uppercase font-medium text-[#1D4F91] group-hover:text-[#153A6B] transition-colors flex items-center gap-1.5">
+			{lang === 'ja' ? 'Read' : 'Read'} <span class="transition-transform group-hover:translate-x-1">→</span>
 		</div>
 	</div>
 </a>
+
+<style>
+	.card-bizin {
+		box-shadow: 0 1px 3px rgba(29, 79, 145, 0.05);
+		transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+	}
+	.card-bizin:hover {
+		box-shadow: 0 6px 24px rgba(29, 79, 145, 0.10);
+		border-color: #1D4F91;
+		transform: translateY(-2px);
+	}
+</style>

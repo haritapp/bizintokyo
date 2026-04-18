@@ -21,32 +21,37 @@ const tr = t(lang);
 			{ name: tr.meta.breadcrumbHome, href: '/' },
 			{ name: 'お問い合わせ' },
 		]} />
-		<p class="mt-8 text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">Contact</p>
-		<h1 class="text-3xl md:text-5xl font-light text-[#1A1A1A] mt-3 tracking-tight">お問い合わせ</h1>
-		<p class="text-[#6B6B6B] mt-6 leading-relaxed font-light">
+		<div class="mt-10 flex items-stretch gap-5">
+			<div class="w-[3px] bg-[#1D4F91]" aria-hidden="true"></div>
+			<div>
+				<p class="text-[12px] md:text-[13px] tracking-[0.3em] text-[#1D4F91] uppercase font-medium">Contact</p>
+				<h1 class="text-[36px] md:text-[48px] lg:text-[56px] font-light text-[#1A1A1A] mt-3 tracking-[-0.02em] leading-[1.15]">お問い合わせ</h1>
+			</div>
+		</div>
+		<p class="text-[16px] md:text-[17px] text-[#1A1A1A] mt-8 leading-[1.9] font-normal">
 			ご質問、取材・掲載のご相談、その他お問い合わせを下記フォームよりお送りください。3営業日以内にご返信いたします。
 		</p>
 
 		<form
 			action="https://formspree.io/f/YOUR_FORM_ID"
 			method="POST"
-			class="mt-12 space-y-8"
+			class="mt-14 space-y-8"
 		>
 			<div>
-				<label for="name" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">お名前 <span class="text-[#165E83]">*</span></label>
-				<input id="name" type="text" name="name" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
+				<label for="name" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">お名前 <span class="text-[#1D4F91]">*</span></label>
+				<input id="name" type="text" name="name" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition" />
 			</div>
 			<div>
-				<label for="email" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">メールアドレス <span class="text-[#165E83]">*</span></label>
-				<input id="email" type="email" name="email" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
+				<label for="email" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">メールアドレス <span class="text-[#1D4F91]">*</span></label>
+				<input id="email" type="email" name="email" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition" />
 			</div>
 			<div>
 				<label for="company" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">会社名</label>
-				<input id="company" type="text" name="company" class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
+				<input id="company" type="text" name="company" class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition" />
 			</div>
 			<div>
-				<label for="type" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">お問い合わせ種別 <span class="text-[#165E83]">*</span></label>
-				<select id="type" name="type" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition">
+				<label for="type" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">お問い合わせ種別 <span class="text-[#1D4F91]">*</span></label>
+				<select id="type" name="type" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition">
 					<option value="venue">会場予約相談</option>
 					<option value="media">メディア掲載</option>
 					<option value="event">イベント情報提供</option>
@@ -55,10 +60,10 @@ const tr = t(lang);
 				</select>
 			</div>
 			<div>
-				<label for="message" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">お問い合わせ内容 <span class="text-[#165E83]">*</span></label>
-				<textarea id="message" name="message" rows="8" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition"></textarea>
+				<label for="message" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">お問い合わせ内容 <span class="text-[#1D4F91]">*</span></label>
+				<textarea id="message" name="message" rows="8" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition"></textarea>
 			</div>
-			<button type="submit" class="px-8 py-3 bg-[#165E83] text-white text-[13px] tracking-widest hover:bg-[#0F4A6B] transition">送信する</button>
+			<button type="submit" class="btn-brand">送信する <span aria-hidden="true">→</span></button>
 		</form>
 	</div>
 </BaseLayout>

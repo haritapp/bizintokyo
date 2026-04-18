@@ -1,0 +1,32 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	viewAll?: { href: string; label: string };
+	align?: 'left' | 'center';
+}
+const { title, subtitle, viewAll, align = 'left' } = Astro.props;
+---
+
+<div class:list={[
+	'flex items-end justify-between gap-6 mb-12 md:mb-14',
+	align === 'center' ? 'flex-col items-center text-center' : '',
+]}>
+	<div class="flex items-stretch gap-5">
+		<div class="w-[3px] bg-[#1D4F91] flex-shrink-0" aria-hidden="true"></div>
+		<div>
+			<h2 class="text-[30px] md:text-[36px] lg:text-[40px] font-normal text-[#1A1A1A] leading-[1.2] tracking-[-0.01em]">{title}</h2>
+			{subtitle && (
+				<p class="mt-2 text-[13px] md:text-[14px] tracking-[0.22em] text-[#6B6B6B] uppercase font-medium">{subtitle}</p>
+			)}
+		</div>
+	</div>
+	{viewAll && (
+		<a
+			href={viewAll.href}
+			class="text-[13px] tracking-[0.1em] uppercase font-medium text-[#1D4F91] hover:text-[#153A6B] no-underline transition-colors whitespace-nowrap flex items-center gap-1.5"
+		>
+			{viewAll.label} <span class="transition-transform hover:translate-x-1">→</span>
+		</a>
+	)}
+</div>

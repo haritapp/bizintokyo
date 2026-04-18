@@ -5,11 +5,15 @@
   --color-base: #FFFFFF;
   --color-text: #1A1A1A;
   --color-text-sub: #6B6B6B;
-  --color-brand: #1A1A1A;
+  --color-brand: #1D4F91;
+  --color-brand-dark: #153A6B;
+  --color-brand-light: #E8EEF7;
   --color-border: #E5E5E5;
   --color-bg-sub: #FAFAF7;
-  --color-accent: #165E83;
-  --color-accent-dark: #0F4A6B;
+
+  /* Legacy aliases (kept so remaining references still resolve) */
+  --color-accent: #1D4F91;
+  --color-accent-dark: #153A6B;
 
   --font-sans: "Noto Sans JP", "Inter", system-ui, sans-serif;
   --font-en: "Inter", "Noto Sans JP", system-ui, sans-serif;
@@ -23,28 +27,71 @@
 html, body {
   color: #1A1A1A;
   font-weight: 400;
+  font-size: 17px;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Global focus outline in brand color */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid #1D4F91;
+  outline-offset: 3px;
+}
+
+/* Primary CTA helper */
+.btn-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1D4F91;
+  color: #FFFFFF;
+  padding: 14px 32px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+.btn-brand:hover { background: #153A6B; }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #1D4F91;
+  padding: 12px 30px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1.5px solid #1D4F91;
+  transition: background 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+.btn-outline:hover { background: #1D4F91; color: #FFFFFF; }
+
 /* Spec-compliant article prose styling */
 .prose-bizin h2 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 400;
   color: #1A1A1A;
-  border-left: 3px solid #165E83;
-  padding-left: 16px;
-  margin-top: 80px;
+  border-left: 3px solid #1D4F91;
+  padding-left: 20px;
+  margin-top: 88px;
   margin-bottom: 32px;
-  line-height: 1.5;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 .prose-bizin h3 {
   font-size: 22px;
-  font-weight: 400;
+  font-weight: 500;
   color: #1A1A1A;
   border-bottom: 1px solid #E5E5E5;
-  padding-bottom: 8px;
-  margin-top: 48px;
+  padding-bottom: 10px;
+  margin-top: 56px;
   margin-bottom: 20px;
   line-height: 1.5;
 }
@@ -57,35 +104,42 @@ html, body {
 }
 .prose-bizin p {
   font-size: 17px;
-  line-height: 1.85;
+  line-height: 1.9;
   margin-top: 0;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   color: #1A1A1A;
 }
 .prose-bizin ul, .prose-bizin ol {
-  margin: 0 0 24px 1.5rem;
+  margin: 0 0 28px 1.5rem;
   font-size: 17px;
-  line-height: 1.85;
+  line-height: 1.9;
 }
 .prose-bizin ul { list-style: disc; }
 .prose-bizin ol { list-style: decimal; }
-.prose-bizin li { margin-bottom: 8px; }
+.prose-bizin li { margin-bottom: 10px; }
 .prose-bizin a {
-  color: #165E83;
+  color: #1D4F91;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease;
 }
 .prose-bizin a:hover {
-  color: #0F4A6B;
+  color: #153A6B;
 }
 .prose-bizin img {
-  margin: 32px 0;
+  margin: 36px 0;
   max-width: 100%;
   height: auto;
 }
 .prose-bizin blockquote {
-  border-left: 3px solid #E5E5E5;
-  padding-left: 16px;
-  margin: 24px 0;
+  border-left: 3px solid #1D4F91;
+  padding-left: 20px;
+  margin: 32px 0;
   color: #6B6B6B;
+  font-style: normal;
+}
+.prose-bizin strong {
+  color: #1A1A1A;
+  font-weight: 700;
 }

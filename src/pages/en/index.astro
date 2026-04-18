@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
 import { featuredArticles } from '../../config/featured';
 import { ARTICLE_CATEGORIES, t } from '../../i18n';
 
@@ -19,7 +20,8 @@ const featured = featuredArticles
 const sections = ARTICLE_CATEGORIES.map((c) => ({
 	category: c,
 	label: tr.categoryHeadings[c],
-	items: all.filter((a) => a.data.category === c).slice(0, 4),
+	subtitle: tr.categorySubtitles[c],
+	items: all.filter((a) => a.data.category === c).slice(0, 3),
 }));
 ---
 
@@ -31,33 +33,42 @@ const sections = ARTICLE_CATEGORIES.map((c) => ({
 	<Hero lang={lang} />
 
 	{featured.length > 0 && (
-		<section class="max-w-[1200px] mx-auto px-6 py-20 md:py-28">
-			<div class="flex items-end justify-between mb-10 border-b border-[#E5E5E5] pb-4">
-				<div>
-					<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{tr.meta.featured}</p>
-					<h2 class="text-2xl md:text-3xl font-light text-[#1A1A1A] mt-2 tracking-tight">Editor's Picks</h2>
-				</div>
-			</div>
-			<div class="grid md:grid-cols-2 gap-6 md:gap-8">
+		<section class="max-w-[1200px] mx-auto px-6 py-24 md:py-32">
+			<SectionHeading
+				title="Editor's Picks"
+				subtitle="編集部のおすすめ"
+			/>
+			<div class="grid md:grid-cols-2 gap-7 md:gap-10">
 				{featured.map((a) => <ArticleCard article={a} size="large" />)}
 			</div>
 		</section>
 	)}
 
 	{sections.filter((s) => s.items.length > 0).map((s) => (
-		<section class="max-w-[1200px] mx-auto px-6 py-16 md:py-20 border-t border-[#E5E5E5]">
-			<div class="flex items-end justify-between mb-10">
-				<div>
-					<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{s.category}</p>
-					<h2 class="text-2xl md:text-3xl font-light text-[#1A1A1A] mt-2 tracking-tight">{s.label}</h2>
-				</div>
-				<a href={`/en/${s.category}`} class="text-[13px] text-[#1A1A1A] hover:text-[#165E83] no-underline tracking-wide font-light">
-					{tr.meta.viewAll} →
-				</a>
-			</div>
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+		<section class="max-w-[1200px] mx-auto px-6 py-20 md:py-28 border-t border-[#E5E5E5]">
+			<SectionHeading
+				title={s.label}
+				subtitle={s.subtitle}
+				viewAll={{ href: `/en/${s.category}`, label: tr.meta.viewAll }}
+			/>
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
 				{s.items.map((a) => <ArticleCard article={a} />)}
 			</div>
 		</section>
 	))}
+
+	<section class="bg-[#FAFAF7] border-t border-[#E5E5E5] py-24 md:py-32">
+		<div class="max-w-[1200px] mx-auto px-6 text-center">
+			<p class="text-[12px] tracking-[0.4em] text-[#1D4F91] uppercase font-medium mb-6">About BizinTokyo</p>
+			<h2 class="text-[28px] md:text-[36px] font-light text-[#1A1A1A] leading-[1.4] max-w-3xl mx-auto tracking-[-0.01em]">
+				Business events in Tokyo — for travelers who mean business.
+			</h2>
+			<p class="mt-8 text-[16px] md:text-[17px] text-[#1A1A1A] leading-[1.9] max-w-2xl mx-auto font-normal">
+				Venues, access, nearby hotels, and event guides — practical intelligence you can actually use on the ground, in both Japanese and English.
+			</p>
+			<div class="mt-10">
+				<a href="/en/contact" class="btn-outline">Get in touch <span aria-hidden="true">→</span></a>
+			</div>
+		</div>
+	</section>
 </BaseLayout>

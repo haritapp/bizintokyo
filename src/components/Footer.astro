@@ -10,25 +10,42 @@ const prefix = lang === 'en' ? '/en' : '';
 ---
 
 <footer class="bg-[#FAFAF7] border-t border-[#E5E5E5] mt-auto">
-	<div class="max-w-[1200px] mx-auto px-6 py-16">
-		<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-12">
+	<div class="max-w-[1200px] mx-auto px-6 pt-20 pb-12">
+		<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-14">
 			<div>
-				<a href={prefix || '/'} class="text-[#1A1A1A] text-xl font-medium tracking-tight no-underline">BizinTokyo</a>
-				<div class="mt-6 text-[13px] text-[#6B6B6B] flex gap-5">
-					<a href="https://www.conec-tando.com/policy" target="_blank" rel="noopener" class="hover:text-[#1A1A1A] no-underline">{tr.footer.privacy}</a>
+				<a href={prefix || '/'} class="inline-block no-underline" aria-label="BizinTokyo">
+					<img
+						src="/images/logo/bizintokyo-logo.svg"
+						alt="BizinTokyo"
+						class="h-12 md:h-14 w-auto block"
+						width="500"
+						height="400"
+						loading="lazy"
+					/>
+				</a>
+				<p class="mt-6 text-[14px] text-[#6B6B6B] leading-relaxed max-w-sm">
+					{lang === 'ja'
+						? '東京のビジネスイベントを、もっと深く、もっとスマートに。'
+						: 'Your gateway to business events in Tokyo — deeper, smarter.'}
+				</p>
+				<div class="mt-8 text-[13px] text-[#6B6B6B] flex gap-5">
+					<a href="https://www.conec-tando.com/policy" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.privacy}</a>
 					<span class="text-[#E5E5E5]">|</span>
-					<a href="https://www.conec-tando.com/about" target="_blank" rel="noopener" class="hover:text-[#1A1A1A] no-underline">{tr.footer.company}</a>
+					<a href="https://www.conec-tando.com/about" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.company}</a>
 				</div>
 			</div>
 			<div>
-				<h3 class="text-[12px] tracking-[0.2em] text-[#6B6B6B] font-medium mb-4">{tr.footer.serviceTitle}</h3>
-				<ul class="space-y-2 text-sm text-[#1A1A1A] font-light">
-					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">{tr.footer.eventManagement}</a></li>
-					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">{tr.footer.japanTour}</a></li>
-					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">{tr.footer.japanExpansion}</a></li>
+				<h3 class="text-[12px] tracking-[0.2em] text-[#1D4F91] font-medium mb-5 uppercase">{tr.footer.serviceTitle}</h3>
+				<ul class="space-y-3 text-[15px] text-[#1A1A1A] font-normal">
+					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.eventManagement}</a></li>
+					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.japanTour}</a></li>
+					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.japanExpansion}</a></li>
 				</ul>
 			</div>
 		</div>
-		<div class="mt-16 pt-6 border-t border-[#E5E5E5] text-[12px] text-[#6B6B6B] tracking-wide">{tr.footer.copyright}</div>
+		<div class="mt-16 pt-6 border-t border-[#E5E5E5] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[12px] text-[#6B6B6B] tracking-wide">
+			<span>{tr.footer.copyright}</span>
+			<a href="https://www.conec-tando.com/" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">www.conec-tando.com</a>
+		</div>
 	</div>
 </footer>

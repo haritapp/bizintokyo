@@ -49,31 +49,36 @@ const title = tr.categoryTitles[cat];
 		]} />
 	</div>
 
-	<section class="max-w-[1200px] mx-auto px-6 pb-12">
-		<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{subtitle}</p>
-		<h1 class="text-3xl md:text-5xl font-light text-[#1A1A1A] mt-3 tracking-tight">{heading}</h1>
-		<p class="text-[#6B6B6B] mt-6 max-w-3xl leading-relaxed font-light">{description}</p>
+	<section class="max-w-[1200px] mx-auto px-6 pb-16 pt-4">
+		<div class="flex items-stretch gap-5">
+			<div class="w-[3px] bg-[#1D4F91]" aria-hidden="true"></div>
+			<div>
+				<p class="text-[12px] md:text-[13px] tracking-[0.3em] text-[#1D4F91] uppercase font-medium">{subtitle}</p>
+				<h1 class="text-[36px] md:text-[48px] lg:text-[56px] font-light text-[#1A1A1A] mt-3 tracking-[-0.02em] leading-[1.15]">{heading}</h1>
+			</div>
+		</div>
+		<p class="text-[16px] md:text-[17px] text-[#1A1A1A] mt-8 max-w-3xl leading-[1.9] font-normal">{description}</p>
 	</section>
 
 	<CategoryTabs current={cat} lang={lang} />
 
-	<section class="max-w-[1200px] mx-auto px-6 py-16">
+	<section class="max-w-[1200px] mx-auto px-6 py-20 md:py-24">
 		{isPlaceholder ? (
-			<div class="border border-[#E5E5E5] py-20 text-center">
-				<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{tr.meta.comingSoon}</p>
-				<p class="mt-4 text-[#1A1A1A] font-light">{tr.meta.comingSoonBody}</p>
+			<div class="border border-[#E5E5E5] bg-[#FAFAF7] py-24 text-center">
+				<p class="text-[12px] tracking-[0.3em] text-[#1D4F91] uppercase font-medium">{tr.meta.comingSoon}</p>
+				<p class="mt-4 text-[#1A1A1A] font-normal text-[16px]">{tr.meta.comingSoonBody}</p>
 			</div>
 		) : items.length > 0 ? (
 			<>
-				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
 					{items.map((a) => <ArticleCard article={a} />)}
 				</div>
 				<Pagination current={1} total={totalPages} baseHref={`/en/${cat}`} lang={lang} />
 			</>
 		) : (
-			<div class="border border-[#E5E5E5] py-20 text-center">
-				<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{tr.meta.comingSoon}</p>
-				<p class="mt-4 text-[#1A1A1A] font-light">{tr.meta.comingSoonBody}</p>
+			<div class="border border-[#E5E5E5] bg-[#FAFAF7] py-24 text-center">
+				<p class="text-[12px] tracking-[0.3em] text-[#1D4F91] uppercase font-medium">{tr.meta.comingSoon}</p>
+				<p class="mt-4 text-[#1A1A1A] font-normal text-[16px]">{tr.meta.comingSoonBody}</p>
 			</div>
 		)}
 	</section>

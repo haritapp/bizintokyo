@@ -24,18 +24,18 @@ for (let p = 1; p <= total; p++) pages.push(p);
 {total > 1 && (
 	<nav class="flex items-center justify-center gap-2 mt-12 text-[13px] font-light tracking-wide" aria-label="Pagination">
 		{current > 1 ? (
-			<a href={hrefFor(current - 1)} class="px-3 py-2 text-[#1A1A1A] hover:text-[#165E83] no-underline">‹ {tr.meta.prev}</a>
+			<a href={hrefFor(current - 1)} class="px-3 py-2 text-[#1A1A1A] hover:text-[#1D4F91] no-underline">‹ {tr.meta.prev}</a>
 		) : (
 			<span class="px-3 py-2 text-[#E5E5E5]">‹ {tr.meta.prev}</span>
 		)}
 		{pages.map((p) => (
 			<a
 				href={hrefFor(p)}
-				class={`px-3 py-2 no-underline ${p === current ? 'text-[#165E83] border-b border-[#165E83]' : 'text-[#1A1A1A] hover:text-[#165E83]'}`}
+				class={`px-3 py-2 no-underline ${p === current ? 'text-[#1D4F91] border-b border-[#1D4F91]' : 'text-[#1A1A1A] hover:text-[#1D4F91]'}`}
 			>{p}</a>
 		))}
 		{current < total ? (
-			<a href={hrefFor(current + 1)} class="px-3 py-2 text-[#1A1A1A] hover:text-[#165E83] no-underline">{tr.meta.next} ›</a>
+			<a href={hrefFor(current + 1)} class="px-3 py-2 text-[#1A1A1A] hover:text-[#1D4F91] no-underline">{tr.meta.next} ›</a>
 		) : (
 			<span class="px-3 py-2 text-[#E5E5E5]">{tr.meta.next} ›</span>
 		)}

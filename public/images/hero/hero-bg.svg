@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8EEF7"/>
+      <stop offset="60%" stop-color="#F4F7FB"/>
+      <stop offset="100%" stop-color="#FAFAF7"/>
+    </linearGradient>
+    <linearGradient id="buildingGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1D4F91" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1D4F91" stop-opacity="0.38"/>
+    </linearGradient>
+    <linearGradient id="buildingGradient2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1D4F91" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#1D4F91" stop-opacity="0.22"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#skyGradient)"/>
+  <path d="M0 720 L180 640 L340 680 L480 610 L640 670 L780 600 L900 650 L1080 590 L1240 640 L1400 600 L1600 660 L1600 900 L0 900 Z" fill="url(#buildingGradient2)"/>
+  <path d="M0 780 L80 760 L80 700 L150 700 L150 740 L240 740 L240 680 L320 680 L320 730 L400 730 L400 690 L500 690 L500 660 L580 660 L580 710 L660 710 L660 740 L760 740 L760 620 L830 620 L830 700 L920 700 L920 660 L1020 660 L1020 720 L1100 720 L1100 670 L1200 670 L1200 730 L1300 730 L1300 690 L1400 690 L1400 720 L1500 720 L1500 700 L1600 700 L1600 900 L0 900 Z" fill="url(#buildingGradient)"/>
+  <g transform="translate(1180, 420)" fill="#1D4F91" opacity="0.28">
+    <polygon points="50,0 55,0 58,40 48,40"/>
+    <polygon points="35,60 70,60 72,120 33,120"/>
+    <polygon points="20,200 85,200 95,300 10,300"/>
+  </g>
+  <line x1="0" y1="900" x2="1600" y2="900" stroke="#1D4F91" stroke-width="1" opacity="0.1"/>
+</svg>

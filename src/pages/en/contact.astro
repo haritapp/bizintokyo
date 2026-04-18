@@ -21,32 +21,37 @@ const tr = t(lang);
 			{ name: tr.meta.breadcrumbHome, href: '/en/' },
 			{ name: 'Contact' },
 		]} />
-		<p class="mt-8 text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">Contact</p>
-		<h1 class="text-3xl md:text-5xl font-light text-[#1A1A1A] mt-3 tracking-tight">Get in touch</h1>
-		<p class="text-[#6B6B6B] mt-6 leading-relaxed font-light">
+		<div class="mt-10 flex items-stretch gap-5">
+			<div class="w-[3px] bg-[#1D4F91]" aria-hidden="true"></div>
+			<div>
+				<p class="text-[12px] md:text-[13px] tracking-[0.3em] text-[#1D4F91] uppercase font-medium">Contact</p>
+				<h1 class="text-[36px] md:text-[48px] lg:text-[56px] font-light text-[#1A1A1A] mt-3 tracking-[-0.02em] leading-[1.15]">Get in touch</h1>
+			</div>
+		</div>
+		<p class="text-[16px] md:text-[17px] text-[#1A1A1A] mt-8 leading-[1.9] font-normal">
 			Use the form below for inquiries, media or interview requests, and other questions. We aim to reply within three business days.
 		</p>
 
 		<form
 			action="https://formspree.io/f/YOUR_FORM_ID"
 			method="POST"
-			class="mt-12 space-y-8"
+			class="mt-14 space-y-8"
 		>
 			<div>
-				<label for="name" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Name <span class="text-[#165E83]">*</span></label>
-				<input id="name" type="text" name="name" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
+				<label for="name" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Name <span class="text-[#1D4F91]">*</span></label>
+				<input id="name" type="text" name="name" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition" />
 			</div>
 			<div>
-				<label for="email" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Email <span class="text-[#165E83]">*</span></label>
-				<input id="email" type="email" name="email" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
+				<label for="email" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Email <span class="text-[#1D4F91]">*</span></label>
+				<input id="email" type="email" name="email" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition" />
 			</div>
 			<div>
 				<label for="company" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Company</label>
-				<input id="company" type="text" name="company" class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
+				<input id="company" type="text" name="company" class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition" />
 			</div>
 			<div>
-				<label for="type" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Inquiry Type <span class="text-[#165E83]">*</span></label>
-				<select id="type" name="type" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition">
+				<label for="type" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Inquiry Type <span class="text-[#1D4F91]">*</span></label>
+				<select id="type" name="type" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition">
 					<option value="venue">Venue Booking Inquiry</option>
 					<option value="media">Media Feature</option>
 					<option value="event">Event Information</option>
@@ -55,10 +60,10 @@ const tr = t(lang);
 				</select>
 			</div>
 			<div>
-				<label for="message" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Message <span class="text-[#165E83]">*</span></label>
-				<textarea id="message" name="message" rows="8" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition"></textarea>
+				<label for="message" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Message <span class="text-[#1D4F91]">*</span></label>
+				<textarea id="message" name="message" rows="8" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3.5 text-[16px] text-[#1A1A1A] focus:outline-none focus:border-[#1D4F91] transition"></textarea>
 			</div>
-			<button type="submit" class="px-8 py-3 bg-[#165E83] text-white text-[13px] tracking-widest hover:bg-[#0F4A6B] transition">Send</button>
+			<button type="submit" class="btn-brand">Send <span aria-hidden="true">→</span></button>
 		</form>
 	</div>
 </BaseLayout>
