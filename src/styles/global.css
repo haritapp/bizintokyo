@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #1d4f91;
+  --font-sans: "Noto Sans JP", "Inter", system-ui, sans-serif;
+}
