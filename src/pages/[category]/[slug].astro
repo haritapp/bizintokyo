@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+export async function getStaticPaths() {
+	const articles = await getCollection('articles', (e) => e.data.lang === 'ja');
+	return articles.map((article) => ({
+		params: { category: article.data.category, slug: article.data.slug },
+		props: { article },
+	}));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const { title, date, category, description, image, isPR, slug } = article.data;
+
+const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, '/');
+
+const categoryLabels: Record<string, string> = {
+	venue: '会場',
+	event: 'イベント',
+	eventguide: 'イベントガイド',
+	news: 'ニュース',
+	column: 'コラム',
+};
+
+const allInCategory = await getCollection(
+	'articles',
+	(e) => e.data.lang === 'ja' && e.data.category === category && e.data.slug !== slug,
+);
+allInCategory.sort((a, b) => +b.data.date - +a.data.date);
+const related = allInCategory.slice(0, 4);
+
+const enMatches = await getCollection(
+	'articles',
+	(e) => e.data.lang === 'en' && e.data.slug === slug && e.data.category === category,
+);
+const switchHref = enMatches.length > 0 ? `/en/${category}/${slug}` : '/en/';
+---
+
+<BaseLayout
+	title={`${title} | BizinTokyo`}
+	description={description}
+	lang="ja"
+	ogImage={image}
+	articleData={{
+		headline: title,
+		datePublished: date.toISOString(),
+		image,
+	}}
+>
+	<article class="max-w-3xl mx-auto px-6 py-10">
+		<nav class="text-xs text-gray-500 mb-4">
+			<a href="/" class="hover:text-brand">ホーム</a> ›
+			<a href={`/${category}`} class="hover:text-brand">{categoryLabels[category]}</a> ›
+			<span>{title}</span>
+		</nav>
+		<div class="flex gap-2 mb-3">
+			<span class="bg-brand text-white text-xs px-2 py-1 rounded">{categoryLabels[category]}</span>
+			{isPR && <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded">PR</span>}
+		</div>
+		<h1 class="text-3xl md:text-4xl font-bold mb-2">{title}</h1>
+		<div class="text-sm text-gray-500 mb-6">{formattedDate}</div>
+		<div class="prose prose-lg max-w-none">
+			<Content />
+		</div>
+		<div class="mt-10 pt-6 border-t border-gray-200 text-sm">
+			<a href={switchHref} class="text-brand hover:underline">English version →</a>
+		</div>
+	</article>
+
+	{related.length > 0 && (
+		<section class="bg-gray-50 py-10">
+			<div class="max-w-[1200px] mx-auto px-6">
+				<h2 class="text-xl font-bold mb-6">関連記事</h2>
+				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+					{related.map((r) => <ArticleCard article={r} />)}
+				</div>
+			</div>
+		</section>
+	)}
+</BaseLayout>

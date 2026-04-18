@@ -1,0 +1,68 @@
+---
+interface Props {
+	lang?: 'ja' | 'en';
+}
+const { lang = 'ja' } = Astro.props;
+
+const labels = {
+	ja: {
+		venue: '会場',
+		event: 'イベント',
+		eventguide: 'イベントガイド',
+		news: 'ニュース',
+		column: 'コラム',
+		contact: 'Contact',
+		switch: 'EN',
+	},
+	en: {
+		venue: 'Venues',
+		event: 'Events',
+		eventguide: 'Event Guide',
+		news: 'News',
+		column: 'Columns',
+		contact: 'Contact',
+		switch: 'JP',
+	},
+};
+
+const t = labels[lang];
+const prefix = lang === 'en' ? '/en' : '';
+const homeHref = prefix || '/';
+const switchHref = lang === 'en' ? '/' : '/en/';
+
+const navLinks = [
+	{ href: `${prefix}/venue`, label: t.venue },
+	{ href: `${prefix}/event`, label: t.event },
+	{ href: `${prefix}/eventguide`, label: t.eventguide },
+	{ href: `${prefix}/news`, label: t.news },
+	{ href: `${prefix}/column`, label: t.column },
+	{ href: `${prefix}/contact`, label: t.contact },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 py-4">
+	<div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+		<a href={homeHref} class="text-brand font-bold text-xl">BizinTokyo</a>
+		<nav class="hidden md:flex items-center gap-6 text-sm">
+			{navLinks.map((link) => (
+				<a href={link.href} class="hover:text-brand">{link.label}</a>
+			))}
+			<a href={switchHref} class="text-brand hover:underline pl-6 border-l border-gray-200">{t.switch}</a>
+		</nav>
+		<button id="hamburger" class="md:hidden text-2xl text-gray-700 leading-none" aria-label="Menu">☰</button>
+	</div>
+	<nav id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+		<div class="max-w-[1200px] mx-auto px-6 py-4 flex flex-col gap-3 text-sm">
+			{navLinks.map((link) => (
+				<a href={link.href} class="hover:text-brand">{link.label}</a>
+			))}
+			<a href={switchHref} class="text-brand">{t.switch}</a>
+		</div>
+	</nav>
+</header>
+
+<script>
+	const btn = document.getElementById('hamburger');
+	const menu = document.getElementById('mobile-menu');
+	btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSlider from '../components/HeroSlider.astro';
-import ArticleCard from '../components/ArticleCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSlider from '../../components/HeroSlider.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
 
-const all = await getCollection('articles', (e) => e.data.lang === 'ja');
+const all = await getCollection('articles', (e) => e.data.lang === 'en');
 all.sort((a, b) => +b.data.date - +a.data.date);
 
 const columnArticles = all.filter((a) => a.data.category === 'column');
@@ -12,11 +12,11 @@ const heroSlides = (columnArticles.length > 0 ? columnArticles : all).slice(0, 5
 
 const categories = ['venue', 'event', 'eventguide', 'news', 'column'] as const;
 const categoryLabels: Record<string, string> = {
-	venue: '会場',
-	event: 'イベント',
-	eventguide: 'イベントガイド',
-	news: 'ニュース',
-	column: 'コラム',
+	venue: 'Venues',
+	event: 'Events',
+	eventguide: 'Event Guide',
+	news: 'News',
+	column: 'Columns',
 };
 
 const sections = categories.map((c) => ({
@@ -25,13 +25,13 @@ const sections = categories.map((c) => ({
 	items: all.filter((a) => a.data.category === c).slice(0, 4),
 }));
 
-const tags = ['#会場', '#イベント', '#コラム', '#東京', '#展示会', '#ガイド'];
+const tags = ['#Venue', '#Event', '#Column', '#Tokyo', '#Exhibition', '#Guide'];
 ---
 
 <BaseLayout
-	title="BizinTokyo | 東京のビジネスイベント情報"
-	description="東京で開催されるビジネスイベント・展示会・会場の総合メディア。最新ニュース、コラム、会場ガイドを発信します。"
-	lang="ja"
+	title="BizinTokyo | Business Events in Tokyo"
+	description="A media platform covering business events, exhibitions, and venues in Tokyo — news, columns, and venue guides."
+	lang="en"
 >
 	<HeroSlider slides={heroSlides} />
 
@@ -39,20 +39,20 @@ const tags = ['#会場', '#イベント', '#コラム', '#東京', '#展示会',
 		<section class="max-w-[1200px] mx-auto px-6 py-10">
 			<div class="flex items-center justify-between mb-6">
 				<h2 class="text-2xl font-bold">{s.label}</h2>
-				<a href={`/${s.category}`} class="text-sm text-brand hover:underline">View All →</a>
+				<a href={`/en/${s.category}`} class="text-sm text-brand hover:underline">View All →</a>
 			</div>
 			{s.items.length > 0 ? (
 				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 					{s.items.map((a) => <ArticleCard article={a} />)}
 				</div>
 			) : (
-				<p class="text-gray-500 text-sm">記事準備中</p>
+				<p class="text-gray-500 text-sm">Coming soon</p>
 			)}
 		</section>
 	))}
 
 	<section class="max-w-[1200px] mx-auto px-6 py-10">
-		<h2 class="text-2xl font-bold mb-6">タグ</h2>
+		<h2 class="text-2xl font-bold mb-6">Tags</h2>
 		<div class="flex flex-wrap gap-2">
 			{tags.map((t) => <span class="bg-gray-100 text-sm px-3 py-1 rounded">{t}</span>)}
 		</div>

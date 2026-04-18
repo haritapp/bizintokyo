@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+export async function getStaticPaths() {
+	return [
+		{ params: { category: 'venue' } },
+		{ params: { category: 'event' } },
+		{ params: { category: 'eventguide' } },
+		{ params: { category: 'news' } },
+		{ params: { category: 'column' } },
+	];
+}
+
+const { category } = Astro.params;
+
+const titles: Record<string, string> = {
+	venue: '会場',
+	event: 'イベント',
+	eventguide: 'イベントガイド',
+	news: 'ニュース',
+	column: 'コラム',
+};
+
+const descriptions: Record<string, string> = {
+	venue: '東京の主要なビジネスイベント会場の最新情報をお届けします。',
+	event: '東京で開催されるビジネスイベント・展示会の最新情報。',
+	eventguide: 'イベント参加に役立つガイド情報をまとめました。',
+	news: 'イベント業界の最新ニュースをお届けします。',
+	column: 'ビジネスイベントに関するコラム記事。',
+};
+
+const all = await getCollection(
+	'articles',
+	(e) => e.data.lang === 'ja' && e.data.category === category,
+);
+all.sort((a, b) => +b.data.date - +a.data.date);
+---
+
+<BaseLayout
+	title={`${titles[category!]} | BizinTokyo`}
+	description={descriptions[category!]}
+	lang="ja"
+>
+	<div class="max-w-[1200px] mx-auto px-6 py-12">
+		<h1 class="text-3xl font-bold mb-2">{titles[category!]}</h1>
+		<p class="text-gray-600 mb-8">{descriptions[category!]}</p>
+		{all.length > 0 ? (
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+				{all.map((article) => <ArticleCard article={article} />)}
+			</div>
+		) : (
+			<p class="text-gray-500">記事準備中です。</p>
+		)}
+	</div>
+</BaseLayout>
