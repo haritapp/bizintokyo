@@ -1,0 +1,10 @@
+/venuetag/venue             /venue/         301
+/eventtag/event             /event/         301
+/eventguidetag/eventguide   /eventguide/    301
+/newstag/news               /news/          301
+/columntag/column           /column/        301
+/en/venuetag/venue          /en/venue/      301
+/en/eventtag/event          /en/event/      301
+/en/eventguidetag/eventguide /en/eventguide/ 301
+/en/newstag/news            /en/news/       301
+/en/columntag/column        /en/column/     301

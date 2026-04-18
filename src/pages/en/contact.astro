@@ -1,40 +1,64 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { t } from '../../i18n';
+
+const lang = 'en';
+const tr = t(lang);
 ---
 
-<BaseLayout title="Contact | BizinTokyo" description="Contact form for BizinTokyo." lang="en">
-	<div class="max-w-2xl mx-auto py-12 px-6">
-		<h1 class="text-3xl font-bold mb-6">Contact</h1>
+<BaseLayout
+	title="Contact | BizinTokyo"
+	description="Get in touch with BizinTokyo for venue booking inquiries, media features, event information, and interview requests."
+	lang={lang}
+	breadcrumb={[
+		{ name: tr.meta.breadcrumbHome, href: '/en/' },
+		{ name: 'Contact' },
+	]}
+>
+	<div class="max-w-3xl mx-auto px-6 py-10">
+		<Breadcrumbs items={[
+			{ name: tr.meta.breadcrumbHome, href: '/en/' },
+			{ name: 'Contact' },
+		]} />
+		<p class="mt-8 text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">Contact</p>
+		<h1 class="text-3xl md:text-5xl font-light text-[#1A1A1A] mt-3 tracking-tight">Get in touch</h1>
+		<p class="text-[#6B6B6B] mt-6 leading-relaxed font-light">
+			Use the form below for inquiries, media or interview requests, and other questions. We aim to reply within three business days.
+		</p>
+
 		<form
 			action="https://formspree.io/f/YOUR_FORM_ID"
 			method="POST"
-			class="bg-white border border-gray-200 rounded-lg p-6 space-y-4 shadow-sm"
+			class="mt-12 space-y-8"
 		>
 			<div>
-				<label class="block text-sm font-bold mb-1">Name <span class="text-red-500">*</span></label>
-				<input type="text" name="name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand" />
+				<label for="name" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Name <span class="text-[#165E83]">*</span></label>
+				<input id="name" type="text" name="name" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
 			</div>
 			<div>
-				<label class="block text-sm font-bold mb-1">Email <span class="text-red-500">*</span></label>
-				<input type="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand" />
+				<label for="email" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Email <span class="text-[#165E83]">*</span></label>
+				<input id="email" type="email" name="email" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
 			</div>
 			<div>
-				<label class="block text-sm font-bold mb-1">Company</label>
-				<input type="text" name="company" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand" />
+				<label for="company" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Company</label>
+				<input id="company" type="text" name="company" class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition" />
 			</div>
 			<div>
-				<label class="block text-sm font-bold mb-1">Inquiry Type</label>
-				<select name="type" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand">
-					<option>Venue booking inquiry</option>
-					<option>Media placement</option>
-					<option>Other</option>
+				<label for="type" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Inquiry Type <span class="text-[#165E83]">*</span></label>
+				<select id="type" name="type" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition">
+					<option value="venue">Venue Booking Inquiry</option>
+					<option value="media">Media Feature</option>
+					<option value="event">Event Information</option>
+					<option value="interview">Interview Request</option>
+					<option value="other">Other</option>
 				</select>
 			</div>
 			<div>
-				<label class="block text-sm font-bold mb-1">Message <span class="text-red-500">*</span></label>
-				<textarea name="message" rows="6" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand"></textarea>
+				<label for="message" class="block text-[13px] tracking-wider font-medium text-[#1A1A1A] mb-2">Message <span class="text-[#165E83]">*</span></label>
+				<textarea id="message" name="message" rows="8" required class="w-full bg-white border border-[#E5E5E5] px-4 py-3 text-[#1A1A1A] focus:outline-none focus:border-[#165E83] transition"></textarea>
 			</div>
-			<button type="submit" class="bg-brand text-white px-6 py-2 rounded hover:opacity-90 font-bold">Send</button>
+			<button type="submit" class="px-8 py-3 bg-[#165E83] text-white text-[13px] tracking-widest hover:bg-[#0F4A6B] transition">Send</button>
 		</form>
 	</div>
 </BaseLayout>

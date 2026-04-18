@@ -1,0 +1,35 @@
+---
+import { CATEGORIES, t, type Lang } from '../i18n';
+
+interface Props {
+	current: string;
+	lang?: Lang;
+}
+const { current, lang = 'ja' } = Astro.props;
+const tr = t(lang);
+const prefix = lang === 'en' ? '/en' : '';
+const navLabels = tr.nav as { [k: string]: string };
+---
+
+<nav class="border-b border-[#E5E5E5]" aria-label="Categories">
+	<div class="max-w-[1200px] mx-auto px-6">
+		<ul class="flex gap-1 overflow-x-auto -mb-px">
+			{CATEGORIES.map((c) => {
+				const active = c === current;
+				const label = navLabels[c];
+				return (
+					<li class="flex-shrink-0">
+						<a
+							href={`${prefix}/${c}`}
+							class={`inline-block px-4 py-4 text-[13px] tracking-wide whitespace-nowrap no-underline transition border-b-2 ${
+								active
+									? 'text-[#1A1A1A] border-[#165E83] font-medium'
+									: 'text-[#6B6B6B] border-transparent hover:text-[#1A1A1A] font-light'
+							}`}
+						>{label}</a>
+					</li>
+				);
+			})}
+		</ul>
+	</div>
+</nav>

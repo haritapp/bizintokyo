@@ -2,6 +2,90 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-brand: #1d4f91;
+  --color-base: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-text-sub: #6B6B6B;
+  --color-brand: #1A1A1A;
+  --color-border: #E5E5E5;
+  --color-bg-sub: #FAFAF7;
+  --color-accent: #165E83;
+  --color-accent-dark: #0F4A6B;
+
   --font-sans: "Noto Sans JP", "Inter", system-ui, sans-serif;
+  --font-en: "Inter", "Noto Sans JP", system-ui, sans-serif;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+}
+
+html, body {
+  color: #1A1A1A;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Spec-compliant article prose styling */
+.prose-bizin h2 {
+  font-size: 28px;
+  font-weight: 400;
+  color: #1A1A1A;
+  border-left: 3px solid #165E83;
+  padding-left: 16px;
+  margin-top: 80px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+.prose-bizin h3 {
+  font-size: 22px;
+  font-weight: 400;
+  color: #1A1A1A;
+  border-bottom: 1px solid #E5E5E5;
+  padding-bottom: 8px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.prose-bizin h4 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+.prose-bizin p {
+  font-size: 17px;
+  line-height: 1.85;
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #1A1A1A;
+}
+.prose-bizin ul, .prose-bizin ol {
+  margin: 0 0 24px 1.5rem;
+  font-size: 17px;
+  line-height: 1.85;
+}
+.prose-bizin ul { list-style: disc; }
+.prose-bizin ol { list-style: decimal; }
+.prose-bizin li { margin-bottom: 8px; }
+.prose-bizin a {
+  color: #165E83;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-bizin a:hover {
+  color: #0F4A6B;
+}
+.prose-bizin img {
+  margin: 32px 0;
+  max-width: 100%;
+  height: auto;
+}
+.prose-bizin blockquote {
+  border-left: 3px solid #E5E5E5;
+  padding-left: 16px;
+  margin: 24px 0;
+  color: #6B6B6B;
 }

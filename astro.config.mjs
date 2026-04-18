@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import remarkHotelCard from './src/lib/remarkHotelCard.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +13,9 @@ export default defineConfig({
 		routing: { prefixDefaultLocale: false },
 	},
 	integrations: [sitemap()],
+	markdown: {
+		remarkPlugins: [remarkHotelCard],
+	},
 	vite: {
 		plugins: [tailwindcss()],
 	},

@@ -1,0 +1,37 @@
+---
+import { t, type Lang } from '../i18n';
+
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+interface Props {
+	headings: Heading[];
+	lang?: Lang;
+	minHeadings?: number;
+}
+
+const { headings, lang = 'ja', minHeadings = 1 } = Astro.props;
+const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const tr = t(lang);
+const showToc = filtered.length >= minHeadings;
+---
+
+{showToc && (
+	<nav class="border border-[#E5E5E5] bg-[#FAFAF7] px-5 py-4 my-8" aria-label="Table of Contents">
+		<details open>
+			<summary class="cursor-pointer text-[12px] tracking-[0.2em] text-[#6B6B6B] uppercase font-medium">
+				{tr.meta.toc}（{filtered.length}）
+			</summary>
+			<ol class="mt-4 space-y-2 text-sm font-light list-none pl-0">
+				{filtered.map((h) => (
+					<li class={h.depth === 3 ? 'pl-4' : ''}>
+						<a href={`#${h.slug}`} class="text-[#1A1A1A] hover:text-[#165E83] no-underline">{h.text}</a>
+					</li>
+				))}
+			</ol>
+		</details>
+	</nav>
+)}

@@ -1,0 +1,26 @@
+---
+import { authors, type AuthorKey } from '../config/authors';
+import type { Lang } from '../i18n';
+
+interface Props {
+	authorKey: AuthorKey;
+	lang?: Lang;
+}
+const { authorKey, lang = 'ja' } = Astro.props;
+const a = authors[authorKey];
+const isEn = lang === 'en';
+const name = isEn ? a.nameEn : a.name;
+const role = isEn ? a.roleEn : a.role;
+const bio = isEn ? a.bioEn : a.bio;
+---
+
+<aside class="border-t border-b border-[#E5E5E5] py-8 my-12 flex gap-5 items-start">
+	<div class="w-14 h-14 flex-shrink-0 bg-[#FAFAF7] flex items-center justify-center text-[#6B6B6B] text-xs tracking-wider">
+		{name.split(' ').map((s) => s[0]).slice(0, 2).join('')}
+	</div>
+	<div class="flex-1">
+		<div class="text-[12px] text-[#6B6B6B] tracking-wider font-light">{role}</div>
+		<div class="text-base font-medium text-[#1A1A1A] mt-1">{name}</div>
+		<p class="text-sm text-[#6B6B6B] leading-relaxed font-light mt-2 mb-0">{bio}</p>
+	</div>
+</aside>

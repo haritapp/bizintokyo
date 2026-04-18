@@ -1,0 +1,40 @@
+---
+import { t, type Lang } from '../i18n';
+
+interface Props {
+	url: string;
+	title: string;
+	lang?: Lang;
+}
+const { url, title, lang = 'ja' } = Astro.props;
+const tr = t(lang);
+const enc = (s: string) => encodeURIComponent(s);
+const xUrl = `https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(title)}`;
+const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`;
+const liUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`;
+---
+
+<div class="flex items-center gap-4 text-[12px] tracking-wider text-[#6B6B6B] font-light">
+	<span class="uppercase">{tr.meta.share}</span>
+	<a href={xUrl} target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">X</a>
+	<a href={fbUrl} target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">Facebook</a>
+	<a href={liUrl} target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">LinkedIn</a>
+	<button type="button" data-share-copy={url} data-copied-label={tr.meta.copied} data-copy-label={tr.meta.copyUrl} class="hover:text-[#165E83]">{tr.meta.copyUrl}</button>
+</div>
+
+<script>
+	document.querySelectorAll('button[data-share-copy]').forEach((btn) => {
+		btn.addEventListener('click', async () => {
+			const url = btn.getAttribute('data-share-copy') || '';
+			const copied = btn.getAttribute('data-copied-label') || 'Copied';
+			const original = btn.getAttribute('data-copy-label') || btn.textContent || '';
+			try {
+				await navigator.clipboard.writeText(url);
+				btn.textContent = copied;
+				setTimeout(() => { btn.textContent = original; }, 1500);
+			} catch (e) {
+				/* ignore */
+			}
+		});
+	});
+</script>

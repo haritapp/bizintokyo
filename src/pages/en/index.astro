@@ -1,60 +1,63 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroSlider from '../../components/HeroSlider.astro';
+import Hero from '../../components/Hero.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import { featuredArticles } from '../../config/featured';
+import { ARTICLE_CATEGORIES, t } from '../../i18n';
 
-const all = await getCollection('articles', (e) => e.data.lang === 'en');
+const lang = 'en';
+const tr = t(lang);
+
+const all = await getCollection('articles', (e) => e.data.lang === lang);
 all.sort((a, b) => +b.data.date - +a.data.date);
 
-const columnArticles = all.filter((a) => a.data.category === 'column');
-const heroSlides = (columnArticles.length > 0 ? columnArticles : all).slice(0, 5);
+const featured = featuredArticles
+	.map((f) => all.find((a) => a.data.slug === f.slug && a.data.category === f.category))
+	.filter((a): a is NonNullable<typeof a> => Boolean(a));
 
-const categories = ['venue', 'event', 'eventguide', 'news', 'column'] as const;
-const categoryLabels: Record<string, string> = {
-	venue: 'Venues',
-	event: 'Events',
-	eventguide: 'Event Guide',
-	news: 'News',
-	column: 'Columns',
-};
-
-const sections = categories.map((c) => ({
+const sections = ARTICLE_CATEGORIES.map((c) => ({
 	category: c,
-	label: categoryLabels[c],
+	label: tr.categoryHeadings[c],
 	items: all.filter((a) => a.data.category === c).slice(0, 4),
 }));
-
-const tags = ['#Venue', '#Event', '#Column', '#Tokyo', '#Exhibition', '#Guide'];
 ---
 
 <BaseLayout
-	title="BizinTokyo | Business Events in Tokyo"
-	description="A media platform covering business events, exhibitions, and venues in Tokyo — news, columns, and venue guides."
-	lang="en"
+	title="BizinTokyo - Your Gateway to Business Events in Tokyo"
+	description="A media platform for international business travelers attending events in Tokyo. Venues, events, hotels and guides."
+	lang={lang}
 >
-	<HeroSlider slides={heroSlides} />
+	<Hero lang={lang} />
 
-	{sections.map((s) => (
-		<section class="max-w-[1200px] mx-auto px-6 py-10">
-			<div class="flex items-center justify-between mb-6">
-				<h2 class="text-2xl font-bold">{s.label}</h2>
-				<a href={`/en/${s.category}`} class="text-sm text-brand hover:underline">View All →</a>
-			</div>
-			{s.items.length > 0 ? (
-				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-					{s.items.map((a) => <ArticleCard article={a} />)}
+	{featured.length > 0 && (
+		<section class="max-w-[1200px] mx-auto px-6 py-20 md:py-28">
+			<div class="flex items-end justify-between mb-10 border-b border-[#E5E5E5] pb-4">
+				<div>
+					<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{tr.meta.featured}</p>
+					<h2 class="text-2xl md:text-3xl font-light text-[#1A1A1A] mt-2 tracking-tight">Editor's Picks</h2>
 				</div>
-			) : (
-				<p class="text-gray-500 text-sm">Coming soon</p>
-			)}
+			</div>
+			<div class="grid md:grid-cols-2 gap-6 md:gap-8">
+				{featured.map((a) => <ArticleCard article={a} size="large" />)}
+			</div>
+		</section>
+	)}
+
+	{sections.filter((s) => s.items.length > 0).map((s) => (
+		<section class="max-w-[1200px] mx-auto px-6 py-16 md:py-20 border-t border-[#E5E5E5]">
+			<div class="flex items-end justify-between mb-10">
+				<div>
+					<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{s.category}</p>
+					<h2 class="text-2xl md:text-3xl font-light text-[#1A1A1A] mt-2 tracking-tight">{s.label}</h2>
+				</div>
+				<a href={`/en/${s.category}`} class="text-[13px] text-[#1A1A1A] hover:text-[#165E83] no-underline tracking-wide font-light">
+					{tr.meta.viewAll} →
+				</a>
+			</div>
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+				{s.items.map((a) => <ArticleCard article={a} />)}
+			</div>
 		</section>
 	))}
-
-	<section class="max-w-[1200px] mx-auto px-6 py-10">
-		<h2 class="text-2xl font-bold mb-6">Tags</h2>
-		<div class="flex flex-wrap gap-2">
-			{tags.map((t) => <span class="bg-gray-100 text-sm px-3 py-1 rounded">{t}</span>)}
-		</div>
-	</section>
 </BaseLayout>

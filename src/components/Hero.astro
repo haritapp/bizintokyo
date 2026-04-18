@@ -1,0 +1,23 @@
+---
+import { t, type Lang } from '../i18n';
+
+interface Props {
+	lang?: Lang;
+}
+const { lang = 'ja' } = Astro.props;
+const tr = t(lang);
+---
+
+<section class="relative bg-[#1A1A1A] text-white overflow-hidden">
+	<div class="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_30%_30%,#165E83_0%,transparent_55%),radial-gradient(ellipse_at_75%_70%,#0F4A6B_0%,transparent_60%)]"></div>
+	<div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40"></div>
+	<div class="relative max-w-[1200px] mx-auto px-6 py-32 md:py-44">
+		<p class="text-[12px] tracking-[0.4em] text-white/70 font-light mb-6 uppercase">{lang === 'ja' ? 'BIZINTOKYO' : 'BizinTokyo'}</p>
+		<h1 class="text-3xl md:text-5xl lg:text-6xl font-light leading-[1.3] tracking-tight max-w-3xl">
+			{tr.tagline}
+		</h1>
+		<p class="mt-8 text-sm md:text-base text-white/75 font-light leading-relaxed max-w-2xl">
+			{tr.subTagline}
+		</p>
+	</div>
+</section>

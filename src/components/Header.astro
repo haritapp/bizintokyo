@@ -1,62 +1,50 @@
 ---
+import { t, CATEGORIES, type Lang } from '../i18n';
+
 interface Props {
-	lang?: 'ja' | 'en';
+	lang?: Lang;
 }
 const { lang = 'ja' } = Astro.props;
-
-const labels = {
-	ja: {
-		venue: '会場',
-		event: 'イベント',
-		eventguide: 'イベントガイド',
-		news: 'ニュース',
-		column: 'コラム',
-		contact: 'Contact',
-		switch: 'EN',
-	},
-	en: {
-		venue: 'Venues',
-		event: 'Events',
-		eventguide: 'Event Guide',
-		news: 'News',
-		column: 'Columns',
-		contact: 'Contact',
-		switch: 'JP',
-	},
-};
-
-const t = labels[lang];
+const tr = t(lang);
 const prefix = lang === 'en' ? '/en' : '';
 const homeHref = prefix || '/';
-const switchHref = lang === 'en' ? '/' : '/en/';
 
-const navLinks = [
-	{ href: `${prefix}/venue`, label: t.venue },
-	{ href: `${prefix}/event`, label: t.event },
-	{ href: `${prefix}/eventguide`, label: t.eventguide },
-	{ href: `${prefix}/news`, label: t.news },
-	{ href: `${prefix}/column`, label: t.column },
-	{ href: `${prefix}/contact`, label: t.contact },
-];
+const navLinks = CATEGORIES.map((c) => ({ href: `${prefix}/${c}`, label: tr.nav[c] }));
+navLinks.push({ href: `${prefix}/contact`, label: tr.nav.contact });
+
+const path = Astro.url.pathname;
+const isEnPath = path === '/en' || path.startsWith('/en/');
+const jaPath = isEnPath ? (path === '/en' || path === '/en/' ? '/' : path.replace(/^\/en/, '')) : path;
+const enPath = isEnPath ? path : (path === '/' ? '/en/' : `/en${path}`);
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 py-4">
-	<div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-		<a href={homeHref} class="text-brand font-bold text-xl">BizinTokyo</a>
-		<nav class="hidden md:flex items-center gap-6 text-sm">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#E5E5E5]">
+	<div class="max-w-[1200px] mx-auto px-6 py-5 flex items-center justify-between gap-6">
+		<a href={homeHref} class="text-[#1A1A1A] font-medium text-xl tracking-tight no-underline">
+			BizinTokyo
+		</a>
+		<nav class="hidden lg:flex items-center gap-7 text-[13px] text-[#1A1A1A] font-light">
 			{navLinks.map((link) => (
-				<a href={link.href} class="hover:text-brand">{link.label}</a>
+				<a href={link.href} class="hover:text-[#165E83] no-underline">{link.label}</a>
 			))}
-			<a href={switchHref} class="text-brand hover:underline pl-6 border-l border-gray-200">{t.switch}</a>
 		</nav>
-		<button id="hamburger" class="md:hidden text-2xl text-gray-700 leading-none" aria-label="Menu">☰</button>
+		<div class="hidden lg:flex items-center gap-3 text-[13px] tracking-wider">
+			<a href={jaPath} class={lang === 'ja' ? 'text-[#1A1A1A]' : 'text-[#6B6B6B] hover:text-[#1A1A1A]'}>JA</a>
+			<span class="text-[#E5E5E5]">|</span>
+			<a href={enPath} class={lang === 'en' ? 'text-[#1A1A1A]' : 'text-[#6B6B6B] hover:text-[#1A1A1A]'}>EN</a>
+		</div>
+		<button id="hamburger" class="lg:hidden text-2xl text-[#1A1A1A] leading-none font-light" aria-label="Menu">≡</button>
 	</div>
-	<nav id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
-		<div class="max-w-[1200px] mx-auto px-6 py-4 flex flex-col gap-3 text-sm">
+	<nav id="mobile-menu" class="hidden lg:hidden border-t border-[#E5E5E5] bg-white">
+		<div class="max-w-[1200px] mx-auto px-6 py-5 flex flex-col gap-3 text-sm">
 			{navLinks.map((link) => (
-				<a href={link.href} class="hover:text-brand">{link.label}</a>
+				<a href={link.href} class="text-[#1A1A1A] hover:text-[#165E83] no-underline py-1">{link.label}</a>
 			))}
-			<a href={switchHref} class="text-brand">{t.switch}</a>
+			<div class="flex items-center gap-3 text-[13px] tracking-wider pt-3 border-t border-[#E5E5E5] mt-2">
+				<a href={jaPath} class={lang === 'ja' ? 'text-[#1A1A1A]' : 'text-[#6B6B6B]'}>JA</a>
+				<span class="text-[#E5E5E5]">|</span>
+				<a href={enPath} class={lang === 'en' ? 'text-[#1A1A1A]' : 'text-[#6B6B6B]'}>EN</a>
+			</div>
 		</div>
 	</nav>
 </header>

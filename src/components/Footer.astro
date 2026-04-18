@@ -1,70 +1,34 @@
 ---
+import { t, type Lang } from '../i18n';
+
 interface Props {
-	lang?: 'ja' | 'en';
+	lang?: Lang;
 }
 const { lang = 'ja' } = Astro.props;
+const tr = t(lang);
 const prefix = lang === 'en' ? '/en' : '';
-
-const labels = {
-	ja: {
-		tagline: '東京で開催されるビジネスイベント・展示会・会場の総合メディア。',
-		categories: 'カテゴリ',
-		operator: '運営者',
-		operatorName: '株式会社Conec-tando',
-		contact: 'Contact',
-		privacy: 'プライバシーポリシー',
-		terms: '利用規約',
-		venue: '会場',
-		event: 'イベント',
-		eventguide: 'イベントガイド',
-		news: 'ニュース',
-		column: 'コラム',
-	},
-	en: {
-		tagline: 'A media platform for business events, exhibitions and venues in Tokyo.',
-		categories: 'Categories',
-		operator: 'Operator',
-		operatorName: 'Conec-tando, Inc.',
-		contact: 'Contact',
-		privacy: 'Privacy Policy',
-		terms: 'Terms of Service',
-		venue: 'Venues',
-		event: 'Events',
-		eventguide: 'Event Guide',
-		news: 'News',
-		column: 'Columns',
-	},
-};
-const t = labels[lang];
 ---
 
-<footer class="bg-gray-50 border-t border-gray-200 mt-auto py-10">
-	<div class="max-w-[1200px] mx-auto px-6 grid md:grid-cols-3 gap-8">
-		<div>
-			<a href={prefix || '/'} class="text-brand font-bold text-xl">BizinTokyo</a>
-			<p class="text-sm text-gray-600 mt-2">{t.tagline}</p>
+<footer class="bg-[#FAFAF7] border-t border-[#E5E5E5] mt-auto">
+	<div class="max-w-[1200px] mx-auto px-6 py-16">
+		<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-12">
+			<div>
+				<a href={prefix || '/'} class="text-[#1A1A1A] text-xl font-medium tracking-tight no-underline">BizinTokyo</a>
+				<div class="mt-6 text-[13px] text-[#6B6B6B] flex gap-5">
+					<a href="https://www.conec-tando.com/policy" target="_blank" rel="noopener" class="hover:text-[#1A1A1A] no-underline">{tr.footer.privacy}</a>
+					<span class="text-[#E5E5E5]">|</span>
+					<a href="https://www.conec-tando.com/about" target="_blank" rel="noopener" class="hover:text-[#1A1A1A] no-underline">{tr.footer.company}</a>
+				</div>
+			</div>
+			<div>
+				<h3 class="text-[12px] tracking-[0.2em] text-[#6B6B6B] font-medium mb-4">{tr.footer.serviceTitle}</h3>
+				<ul class="space-y-2 text-sm text-[#1A1A1A] font-light">
+					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">{tr.footer.eventManagement}</a></li>
+					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">{tr.footer.japanTour}</a></li>
+					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#165E83] no-underline">{tr.footer.japanExpansion}</a></li>
+				</ul>
+			</div>
 		</div>
-		<div>
-			<h3 class="font-bold text-sm mb-3">{t.categories}</h3>
-			<ul class="space-y-2 text-sm text-gray-700">
-				<li><a href={`${prefix}/venue`} class="hover:text-brand">{t.venue}</a></li>
-				<li><a href={`${prefix}/event`} class="hover:text-brand">{t.event}</a></li>
-				<li><a href={`${prefix}/eventguide`} class="hover:text-brand">{t.eventguide}</a></li>
-				<li><a href={`${prefix}/news`} class="hover:text-brand">{t.news}</a></li>
-				<li><a href={`${prefix}/column`} class="hover:text-brand">{t.column}</a></li>
-			</ul>
-		</div>
-		<div>
-			<h3 class="font-bold text-sm mb-3">{t.operator}</h3>
-			<ul class="space-y-2 text-sm text-gray-700">
-				<li>
-					<a href="https://www.conec-tando.com/" target="_blank" rel="noopener" class="hover:text-brand">{t.operatorName}</a>
-				</li>
-				<li><a href={`${prefix}/contact`} class="hover:text-brand">{t.contact}</a></li>
-				<li><a href={`${prefix}/privacy`} class="hover:text-brand">{t.privacy}</a></li>
-				<li><a href={`${prefix}/terms`} class="hover:text-brand">{t.terms}</a></li>
-			</ul>
-		</div>
+		<div class="mt-16 pt-6 border-t border-[#E5E5E5] text-[12px] text-[#6B6B6B] tracking-wide">{tr.footer.copyright}</div>
 	</div>
-	<div class="max-w-[1200px] mx-auto px-6 mt-8 text-xs text-gray-500">© 2026 Conec-tando, Inc.</div>
 </footer>

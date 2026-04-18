@@ -2,56 +2,79 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CategoryTabs from '../../components/CategoryTabs.astro';
+import Pagination from '../../components/Pagination.astro';
+import { CATEGORIES, PLACEHOLDER_CATEGORIES, t } from '../../i18n';
 
 export async function getStaticPaths() {
-	return [
-		{ params: { category: 'venue' } },
-		{ params: { category: 'event' } },
-		{ params: { category: 'eventguide' } },
-		{ params: { category: 'news' } },
-		{ params: { category: 'column' } },
-	];
+	return CATEGORIES.map((category) => ({ params: { category } }));
 }
 
+const lang = 'ja';
+const tr = t(lang);
 const { category } = Astro.params;
+const cat = category as (typeof CATEGORIES)[number];
 
-const titles: Record<string, string> = {
-	venue: '会場',
-	event: 'イベント',
-	eventguide: 'イベントガイド',
-	news: 'ニュース',
-	column: 'コラム',
-};
+const isPlaceholder = (PLACEHOLDER_CATEGORIES as readonly string[]).includes(cat);
 
-const descriptions: Record<string, string> = {
-	venue: '東京の主要なビジネスイベント会場の最新情報をお届けします。',
-	event: '東京で開催されるビジネスイベント・展示会の最新情報。',
-	eventguide: 'イベント参加に役立つガイド情報をまとめました。',
-	news: 'イベント業界の最新ニュースをお届けします。',
-	column: 'ビジネスイベントに関するコラム記事。',
-};
-
-const all = await getCollection(
-	'articles',
-	(e) => e.data.lang === 'ja' && e.data.category === category,
-);
+const PER_PAGE = 12;
+const all = isPlaceholder
+	? []
+	: await getCollection('articles', (e) => e.data.lang === lang && e.data.category === cat);
 all.sort((a, b) => +b.data.date - +a.data.date);
+
+const totalPages = Math.max(1, Math.ceil(all.length / PER_PAGE));
+const items = all.slice(0, PER_PAGE);
+
+const heading = tr.categoryHeadings[cat];
+const subtitle = tr.categorySubtitles[cat];
+const description = tr.categoryDescriptions[cat];
+const title = tr.categoryTitles[cat];
 ---
 
 <BaseLayout
-	title={`${titles[category!]} | BizinTokyo`}
-	description={descriptions[category!]}
-	lang="ja"
+	title={title}
+	description={description}
+	lang={lang}
+	breadcrumb={[
+		{ name: tr.meta.breadcrumbHome, href: '/' },
+		{ name: heading },
+	]}
 >
-	<div class="max-w-[1200px] mx-auto px-6 py-12">
-		<h1 class="text-3xl font-bold mb-2">{titles[category!]}</h1>
-		<p class="text-gray-600 mb-8">{descriptions[category!]}</p>
-		{all.length > 0 ? (
-			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-				{all.map((article) => <ArticleCard article={article} />)}
-			</div>
-		) : (
-			<p class="text-gray-500">記事準備中です。</p>
-		)}
+	<div class="max-w-[1200px] mx-auto px-6 py-8">
+		<Breadcrumbs items={[
+			{ name: tr.meta.breadcrumbHome, href: '/' },
+			{ name: heading },
+		]} />
 	</div>
+
+	<section class="max-w-[1200px] mx-auto px-6 pb-12">
+		<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{subtitle}</p>
+		<h1 class="text-3xl md:text-5xl font-light text-[#1A1A1A] mt-3 tracking-tight">{heading}</h1>
+		<p class="text-[#6B6B6B] mt-6 max-w-3xl leading-relaxed font-light">{description}</p>
+	</section>
+
+	<CategoryTabs current={cat} lang={lang} />
+
+	<section class="max-w-[1200px] mx-auto px-6 py-16">
+		{isPlaceholder ? (
+			<div class="border border-[#E5E5E5] py-20 text-center">
+				<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{tr.meta.comingSoon}</p>
+				<p class="mt-4 text-[#1A1A1A] font-light">{tr.meta.comingSoonBody}</p>
+			</div>
+		) : items.length > 0 ? (
+			<>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+					{items.map((a) => <ArticleCard article={a} />)}
+				</div>
+				<Pagination current={1} total={totalPages} baseHref={`/${cat}`} lang={lang} />
+			</>
+		) : (
+			<div class="border border-[#E5E5E5] py-20 text-center">
+				<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium">{tr.meta.comingSoon}</p>
+				<p class="mt-4 text-[#1A1A1A] font-light">{tr.meta.comingSoonBody}</p>
+			</div>
+		)}
+	</section>
 </BaseLayout>

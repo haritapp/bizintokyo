@@ -2,6 +2,12 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleCard from '../../../components/ArticleCard.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AuthorBio from '../../../components/AuthorBio.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import TOC from '../../../components/TOC.astro';
+import { authors } from '../../../config/authors';
+import { ARTICLE_CATEGORIES, t } from '../../../i18n';
 
 export async function getStaticPaths() {
 	const articles = await getCollection('articles', (e) => e.data.lang === 'en');
@@ -12,22 +18,22 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content } = await render(article);
-const { title, date, category, description, image, isPR, slug } = article.data;
+const { Content, headings } = await render(article);
+const { title, date, updated, category, description, heroImage, ogImage, isPR, slug, author, template } = article.data;
 
-const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, '/');
+const lang = 'en';
+const tr = t(lang);
 
-const categoryLabels: Record<string, string> = {
-	venue: 'Venue',
-	event: 'Event',
-	eventguide: 'Guide',
-	news: 'News',
-	column: 'Column',
-};
+const formatDate = (d: Date) =>
+	`${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+const publishedStr = formatDate(date);
+const updatedStr = updated ? formatDate(updated) : null;
+
+const categoryLabel = tr.categoryHeadings[category as (typeof ARTICLE_CATEGORIES)[number]];
 
 const allInCategory = await getCollection(
 	'articles',
-	(e) => e.data.lang === 'en' && e.data.category === category && e.data.slug !== slug,
+	(e) => e.data.lang === lang && e.data.category === category && e.data.slug !== slug,
 );
 allInCategory.sort((a, b) => +b.data.date - +a.data.date);
 const related = allInCategory.slice(0, 4);
@@ -37,44 +43,90 @@ const jaMatches = await getCollection(
 	(e) => e.data.lang === 'ja' && e.data.slug === slug && e.data.category === category,
 );
 const switchHref = jaMatches.length > 0 ? `/${category}/${slug}` : '/';
+
+const authorInfo = authors[author];
+const authorName = authorInfo.nameEn;
+
+const site = Astro.site?.toString().replace(/\/$/, '') || 'https://bizintokyo.com';
+const articleUrl = `${site}/en/${category}/${slug}`;
+
+const showToc = template === 'guide' || (template === 'standard' && headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 3);
+const showAuthorBio = template !== 'event';
 ---
 
 <BaseLayout
-	title={`${title} | BizinTokyo`}
+	title={`${title} | ${categoryLabel} | BizinTokyo`}
 	description={description}
-	lang="en"
-	ogImage={image}
+	lang={lang}
+	ogImage={ogImage || heroImage}
 	articleData={{
 		headline: title,
 		datePublished: date.toISOString(),
-		image,
+		dateModified: updated ? updated.toISOString() : date.toISOString(),
+		image: heroImage || ogImage,
+		authorName,
 	}}
+	breadcrumb={[
+		{ name: tr.meta.breadcrumbHome, href: '/en/' },
+		{ name: categoryLabel, href: `/en/${category}` },
+		{ name: title },
+	]}
 >
 	<article class="max-w-3xl mx-auto px-6 py-10">
-		<nav class="text-xs text-gray-500 mb-4">
-			<a href="/en/" class="hover:text-brand">Home</a> ›
-			<a href={`/en/${category}`} class="hover:text-brand">{categoryLabels[category]}</a> ›
-			<span>{title}</span>
-		</nav>
-		<div class="flex gap-2 mb-3">
-			<span class="bg-brand text-white text-xs px-2 py-1 rounded">{categoryLabels[category]}</span>
-			{isPR && <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded">PR</span>}
+		<Breadcrumbs items={[
+			{ name: tr.meta.breadcrumbHome, href: '/en/' },
+			{ name: categoryLabel, href: `/en/${category}` },
+			{ name: title },
+		]} />
+
+		<div class="mt-8">
+			<a href={`/en/${category}`} class="text-[12px] tracking-[0.2em] text-[#165E83] uppercase no-underline hover:text-[#0F4A6B]">{categoryLabel}</a>
+			{isPR && <span class="ml-3 inline-block px-2 py-0.5 border border-[#E5E5E5] text-[10px] text-[#6B6B6B] tracking-wider">PR</span>}
 		</div>
-		<h1 class="text-3xl md:text-4xl font-bold mb-2">{title}</h1>
-		<div class="text-sm text-gray-500 mb-6">{formattedDate}</div>
-		<div class="prose prose-lg max-w-none">
+
+		<h1 class="mt-4 text-3xl md:text-[44px] font-light text-[#1A1A1A] leading-[1.35] tracking-tight">{title}</h1>
+
+		<div class="mt-6 text-[12px] text-[#6B6B6B] tracking-wider font-light flex flex-wrap items-center gap-x-4 gap-y-2">
+			<span>{tr.meta.author}: {authorName}</span>
+			<span>{tr.meta.published}: {publishedStr}</span>
+			{updatedStr && <span>{tr.meta.updated}: {updatedStr}</span>}
+		</div>
+
+		<div class="mt-6">
+			<ShareButtons url={articleUrl} title={title} lang={lang} />
+		</div>
+
+		{heroImage && (
+			<figure class="mt-10 aspect-video bg-[#FAFAF7] overflow-hidden">
+				<img src={heroImage} alt={title} class="w-full h-full object-cover" />
+			</figure>
+		)}
+
+		<p class="mt-10 text-[#1A1A1A] text-lg font-light leading-relaxed">{description}</p>
+
+		{showToc && <TOC headings={headings} lang={lang} minHeadings={template === 'guide' ? 1 : 3} />}
+
+		<div class="prose-bizin mt-10">
 			<Content />
 		</div>
-		<div class="mt-10 pt-6 border-t border-gray-200 text-sm">
-			<a href={switchHref} class="text-brand hover:underline">日本語版 →</a>
+
+		<div class="mt-12 pt-6 border-t border-[#E5E5E5]">
+			<ShareButtons url={articleUrl} title={title} lang={lang} />
+		</div>
+
+		{showAuthorBio && <AuthorBio authorKey={author} lang={lang} />}
+
+		<div class="mt-10 text-[12px] tracking-wider">
+			<a href={switchHref} class="text-[#165E83] hover:text-[#0F4A6B] no-underline">日本語版 →</a>
 		</div>
 	</article>
 
 	{related.length > 0 && (
-		<section class="bg-gray-50 py-10">
+		<section class="bg-[#FAFAF7] py-16 mt-12">
 			<div class="max-w-[1200px] mx-auto px-6">
-				<h2 class="text-xl font-bold mb-6">Related Articles</h2>
-				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+				<p class="text-[12px] tracking-[0.3em] text-[#6B6B6B] uppercase font-medium mb-2">{tr.meta.relatedArticles}</p>
+				<h2 class="text-2xl font-light text-[#1A1A1A] tracking-tight mb-10">Related Articles</h2>
+				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
 					{related.map((r) => <ArticleCard article={r} />)}
 				</div>
 			</div>
