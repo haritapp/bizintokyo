@@ -21,50 +21,68 @@ const categoryLabel = (tr.categoryHeadings as Record<string, string>)[category] 
 const image = heroImage || ogImage || '';
 ---
 
-<a
-	href={href}
-	class:list={[
-		'card-bizin group block bg-white border border-[#E5E5E5] overflow-hidden no-underline',
-		size === 'large' ? 'md:flex' : '',
-	]}
->
-	<div class:list={['aspect-video bg-[#E8EEF7] overflow-hidden relative', size === 'large' ? 'md:w-1/2 md:aspect-auto' : '']}>
-		{image ? (
-			<img src={image} alt={title} loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.05]" />
-		) : (
-			<div class="w-full h-full flex items-center justify-center text-[#1D4F91] text-[11px] tracking-[0.3em] font-medium">
-				{categoryLabel.toUpperCase()}
-			</div>
-		)}
-	</div>
-	<div class:list={['p-6', size === 'large' ? 'md:w-1/2 md:p-10 md:flex md:flex-col md:justify-center' : '']}>
-		<div class="text-[12px] tracking-wider mb-4 flex items-center gap-2 flex-wrap">
-			<span class="text-[#1D4F91] font-medium uppercase tracking-[0.15em]">{categoryLabel}</span>
-			<span class="text-[#E5E5E5]">·</span>
-			<time class="text-[#6B6B6B] font-normal">{formattedDate}</time>
-			{isPR && <span class="ml-1 inline-block px-1.5 py-0.5 border border-[#1D4F91] text-[10px] text-[#1D4F91] tracking-wider">PR</span>}
+<a href={href} class="card-bizin group block bg-white no-underline overflow-hidden">
+	<div class={size === 'large' ? 'md:flex md:items-stretch' : ''}>
+		<div class={[
+			'relative overflow-hidden',
+			size === 'large' ? 'md:w-1/2 aspect-video md:aspect-auto' : 'aspect-video',
+		].join(' ')}>
+			{image ? (
+				<img
+					src={image}
+					alt={title}
+					loading="lazy"
+					class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+				/>
+			) : (
+				<div class="w-full h-full flex items-center justify-center relative placeholder-grad">
+					<img
+						src="/images/logo/bizintokyo-logo.svg"
+						alt=""
+						aria-hidden="true"
+						class="w-[52%] max-w-[260px] opacity-[0.95] mix-blend-screen"
+					/>
+				</div>
+			)}
 		</div>
-		<h3 class:list={[
-			size === 'large' ? 'text-[22px] md:text-[26px] leading-[1.4]' : 'text-[18px] leading-[1.5]',
-			'font-medium text-[#1A1A1A] mb-3 transition-colors group-hover:text-[#1D4F91]',
-		]}>{title}</h3>
-		{description && (
-			<p class="text-[14px] text-[#6B6B6B] leading-[1.7] line-clamp-2 font-normal">{description}</p>
-		)}
-		<div class="mt-6 text-[13px] tracking-[0.1em] uppercase font-medium text-[#1D4F91] group-hover:text-[#153A6B] transition-colors flex items-center gap-1.5">
-			{lang === 'ja' ? 'Read' : 'Read'} <span class="transition-transform group-hover:translate-x-1">→</span>
+		<div class={[
+			'p-6 md:p-7',
+			size === 'large' ? 'md:w-1/2 md:p-10 md:flex md:flex-col md:justify-center' : '',
+		].join(' ')}>
+			<div class="flex items-center flex-wrap gap-2.5 mb-4">
+				<span class="inline-block bg-[#E8EEF7] text-[#1D4F91] text-[11px] font-semibold tracking-[0.14em] uppercase px-3 py-1 rounded-full">
+					{categoryLabel}
+				</span>
+				<time class="text-[12px] text-[#6B6B6B] font-normal tracking-wider">{formattedDate}</time>
+				{isPR && (
+					<span class="ml-1 inline-block px-1.5 py-0.5 border border-[#1D4F91] text-[10px] text-[#1D4F91] tracking-wider rounded-sm">PR</span>
+				)}
+			</div>
+			<h3 class={[
+				size === 'large' ? 'text-[22px] md:text-[28px] leading-[1.35]' : 'text-[19px] md:text-[20px] leading-[1.45]',
+				'font-bold text-[#1A1A1A] mb-3 transition-colors group-hover:text-[#1D4F91]',
+			].join(' ')}>{title}</h3>
+			{description && (
+				<p class="text-[14px] text-[#6B6B6B] leading-[1.75] line-clamp-3 font-normal">{description}</p>
+			)}
+			<div class="mt-6 text-[12px] tracking-[0.2em] uppercase font-semibold text-[#1D4F91] flex items-center gap-2.5">
+				Read
+				<span aria-hidden="true" class="inline-block w-2 h-2 rounded-full bg-[#1D4F91] transition-transform group-hover:translate-x-1"></span>
+			</div>
 		</div>
 	</div>
 </a>
 
 <style>
 	.card-bizin {
-		box-shadow: 0 1px 3px rgba(29, 79, 145, 0.05);
-		transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+		box-shadow: 0 2px 8px rgba(29, 79, 145, 0.08);
+		transition: box-shadow 0.3s ease, transform 0.3s ease;
 	}
 	.card-bizin:hover {
-		box-shadow: 0 6px 24px rgba(29, 79, 145, 0.10);
-		border-color: #1D4F91;
-		transform: translateY(-2px);
+		box-shadow: 0 12px 32px rgba(29, 79, 145, 0.18);
+		transform: translateY(-3px);
+	}
+	.placeholder-grad {
+		background: linear-gradient(135deg, #1D4F91 0%, #2B5FA5 45%, #153A6B 100%);
 	}
 </style>

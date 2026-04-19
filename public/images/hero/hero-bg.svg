@@ -1,26 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Tokyo skyline at dusk">
   <defs>
-    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E8EEF7"/>
-      <stop offset="60%" stop-color="#F4F7FB"/>
-      <stop offset="100%" stop-color="#FAFAF7"/>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A1F42"/>
+      <stop offset="45%" stop-color="#1D4F91"/>
+      <stop offset="80%" stop-color="#2B5FA5"/>
+      <stop offset="100%" stop-color="#4B7BB8"/>
     </linearGradient>
-    <linearGradient id="buildingGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1D4F91" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#1D4F91" stop-opacity="0.38"/>
+    <linearGradient id="city-far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F2B56" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#0A1F42" stop-opacity="0.95"/>
     </linearGradient>
-    <linearGradient id="buildingGradient2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1D4F91" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#1D4F91" stop-opacity="0.22"/>
+    <linearGradient id="city-mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#091A36"/>
+      <stop offset="100%" stop-color="#050F24"/>
     </linearGradient>
+    <linearGradient id="city-near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#04112A"/>
+      <stop offset="100%" stop-color="#010714"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="70%" r="48%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="1600" height="900" fill="url(#skyGradient)"/>
-  <path d="M0 720 L180 640 L340 680 L480 610 L640 670 L780 600 L900 650 L1080 590 L1240 640 L1400 600 L1600 660 L1600 900 L0 900 Z" fill="url(#buildingGradient2)"/>
-  <path d="M0 780 L80 760 L80 700 L150 700 L150 740 L240 740 L240 680 L320 680 L320 730 L400 730 L400 690 L500 690 L500 660 L580 660 L580 710 L660 710 L660 740 L760 740 L760 620 L830 620 L830 700 L920 700 L920 660 L1020 660 L1020 720 L1100 720 L1100 670 L1200 670 L1200 730 L1300 730 L1300 690 L1400 690 L1400 720 L1500 720 L1500 700 L1600 700 L1600 900 L0 900 Z" fill="url(#buildingGradient)"/>
-  <g transform="translate(1180, 420)" fill="#1D4F91" opacity="0.28">
-    <polygon points="50,0 55,0 58,40 48,40"/>
-    <polygon points="35,60 70,60 72,120 33,120"/>
-    <polygon points="20,200 85,200 95,300 10,300"/>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+
+  <g fill="#FFFFFF" opacity="0.5">
+    <circle cx="120" cy="90" r="0.9"/>
+    <circle cx="250" cy="150" r="0.6"/>
+    <circle cx="420" cy="70" r="0.9"/>
+    <circle cx="600" cy="130" r="0.5"/>
+    <circle cx="770" cy="80" r="0.7"/>
+    <circle cx="950" cy="160" r="0.6"/>
+    <circle cx="1120" cy="90" r="0.8"/>
+    <circle cx="1280" cy="140" r="0.6"/>
+    <circle cx="1450" cy="100" r="0.8"/>
+    <circle cx="340" cy="200" r="0.4"/>
+    <circle cx="870" cy="210" r="0.5"/>
+    <circle cx="1200" cy="220" r="0.5"/>
   </g>
-  <line x1="0" y1="900" x2="1600" y2="900" stroke="#1D4F91" stroke-width="1" opacity="0.1"/>
+
+  <path fill="url(#city-far)" d="M 0 620 L 0 520 L 60 520 L 60 470 L 110 470 L 110 500 L 160 500 L 160 440 L 210 440 L 210 490 L 260 490 L 260 420 L 310 420 L 310 470 L 360 470 L 360 510 L 420 510 L 420 450 L 470 450 L 470 480 L 530 480 L 530 430 L 580 430 L 580 510 L 630 510 L 630 460 L 690 460 L 690 440 L 750 440 L 750 500 L 810 500 L 810 430 L 870 430 L 870 470 L 930 470 L 930 440 L 1000 440 L 1000 490 L 1060 490 L 1060 450 L 1120 450 L 1120 430 L 1180 430 L 1180 480 L 1240 480 L 1240 440 L 1300 440 L 1300 460 L 1370 460 L 1370 420 L 1430 420 L 1430 480 L 1500 480 L 1500 460 L 1560 460 L 1560 500 L 1600 500 L 1600 620 Z"/>
+
+  <g fill="url(#city-mid)">
+    <path d="M 560 570 L 572 570 L 574 460 L 578 380 L 582 310 L 585 245 L 588 180 L 590 110 L 592 50 L 594 110 L 596 180 L 599 245 L 602 310 L 606 380 L 610 460 L 612 570 Z"/>
+    <rect x="570" y="350" width="44" height="6" opacity="0.7"/>
+    <rect x="566" y="430" width="52" height="6" opacity="0.7"/>
+    <rect x="560" y="520" width="64" height="6" opacity="0.7"/>
+  </g>
+
+  <path fill="url(#city-mid)" d="M 0 900 L 0 620 L 60 620 L 60 550 L 130 550 L 130 520 L 200 520 L 200 580 L 270 580 L 270 500 L 340 500 L 340 550 L 410 550 L 410 480 L 480 480 L 480 530 L 540 530 L 540 570 L 630 570 L 630 510 L 700 510 L 700 540 L 770 540 L 770 490 L 840 490 L 840 530 L 910 530 L 910 500 L 980 500 L 980 555 L 1050 555 L 1050 515 L 1130 515 L 1130 470 L 1210 470 L 1210 520 L 1280 520 L 1280 490 L 1360 490 L 1360 540 L 1440 540 L 1440 510 L 1530 510 L 1530 540 L 1600 540 L 1600 900 Z"/>
+
+  <g fill="#F4D27A" opacity="0.65">
+    <rect x="72" y="570" width="3" height="4"/>
+    <rect x="82" y="580" width="3" height="4"/>
+    <rect x="72" y="590" width="3" height="4"/>
+    <rect x="92" y="575" width="3" height="4"/>
+    <rect x="140" y="540" width="3" height="4"/>
+    <rect x="152" y="555" width="3" height="4"/>
+    <rect x="140" y="570" width="3" height="4"/>
+    <rect x="220" y="600" width="3" height="4"/>
+    <rect x="230" y="610" width="3" height="4"/>
+    <rect x="220" y="620" width="3" height="4"/>
+    <rect x="352" y="515" width="3" height="4"/>
+    <rect x="362" y="525" width="3" height="4"/>
+    <rect x="420" y="500" width="3" height="4"/>
+    <rect x="430" y="510" width="3" height="4"/>
+    <rect x="500" y="550" width="3" height="4"/>
+    <rect x="510" y="565" width="3" height="4"/>
+    <rect x="650" y="530" width="3" height="4"/>
+    <rect x="660" y="545" width="3" height="4"/>
+    <rect x="720" y="560" width="3" height="4"/>
+    <rect x="790" y="510" width="3" height="4"/>
+    <rect x="800" y="525" width="3" height="4"/>
+    <rect x="860" y="510" width="3" height="4"/>
+    <rect x="930" y="520" width="3" height="4"/>
+    <rect x="1000" y="575" width="3" height="4"/>
+    <rect x="1010" y="590" width="3" height="4"/>
+    <rect x="1070" y="535" width="3" height="4"/>
+    <rect x="1150" y="490" width="3" height="4"/>
+    <rect x="1160" y="505" width="3" height="4"/>
+    <rect x="1230" y="540" width="3" height="4"/>
+    <rect x="1300" y="510" width="3" height="4"/>
+    <rect x="1380" y="560" width="3" height="4"/>
+    <rect x="1460" y="525" width="3" height="4"/>
+    <rect x="1545" y="555" width="3" height="4"/>
+  </g>
+
+  <path fill="url(#city-near)" d="M 0 900 L 0 720 L 80 720 L 80 680 L 180 680 L 180 700 L 260 700 L 260 650 L 360 650 L 360 690 L 440 690 L 440 660 L 540 660 L 540 700 L 640 700 L 640 670 L 720 670 L 720 640 L 820 640 L 820 690 L 900 690 L 900 650 L 1000 650 L 1000 680 L 1080 680 L 1080 640 L 1180 640 L 1180 680 L 1280 680 L 1280 650 L 1380 650 L 1380 690 L 1460 690 L 1460 660 L 1560 660 L 1560 690 L 1600 690 L 1600 900 Z"/>
 </svg>

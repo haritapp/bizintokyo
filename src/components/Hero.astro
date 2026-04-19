@@ -9,49 +9,46 @@ const tr = t(lang);
 const prefix = lang === 'en' ? '/en' : '';
 ---
 
-<section class="relative overflow-hidden bg-[#FAFAF7]">
+<section class="relative overflow-hidden bg-[#0A1F42]">
 	<div
 		class="absolute inset-0 bg-center bg-cover"
 		style="background-image:url('/images/hero/hero-bg.svg');"
 		aria-hidden="true"
 	></div>
-	<div class="absolute inset-0 bg-white/80" aria-hidden="true"></div>
-	<div class="absolute top-0 left-0 h-full w-[3px] bg-[#1D4F91]" aria-hidden="true"></div>
+	<div class="absolute inset-0 bg-[#0A1F42]/35" aria-hidden="true"></div>
 
-	<div class="relative max-w-[1200px] mx-auto px-6 py-28 md:py-40 lg:py-48 min-h-[70vh] flex items-center">
-		<div class="max-w-3xl">
-			<p class="text-[11px] md:text-[12px] tracking-[0.4em] text-[#1D4F91] font-medium uppercase mb-8">
+	<div class="relative max-w-[1200px] mx-auto px-6 py-24 md:py-32 lg:py-40 min-h-[70vh] lg:min-h-[75vh] flex items-center">
+		<div class="max-w-4xl">
+			<p class="text-[11px] md:text-[12px] tracking-[0.45em] text-white/80 font-semibold uppercase mb-7">
 				Business Events in Tokyo
 			</p>
-			<h1 class="text-[40px] md:text-[56px] lg:text-[64px] font-light leading-[1.15] tracking-[-0.02em] text-[#1A1A1A]">
-				{tr.tagline}
+			<h1 class="text-[36px] md:text-[56px] lg:text-[72px] font-bold leading-[1.1] tracking-[-0.02em] text-white">
+				{lang === 'ja'
+					? <>東京のビジネスイベントを、<br class="hidden md:block"/>もっと深く、もっとスマートに。</>
+					: <>Tokyo's business events,<br class="hidden md:block"/>deeper and smarter.</>
+				}
 			</h1>
-			<p class="mt-10 text-[17px] md:text-[18px] text-[#1A1A1A] leading-[1.8] font-normal max-w-2xl">
-				{tr.subTagline}
+			<p class="mt-8 md:mt-10 text-[17px] md:text-[19px] text-white/85 leading-[1.75] font-normal max-w-2xl">
+				{lang === 'ja'
+					? '訪日ビジネストラベラー・イベント参加者のための、東京ビジネスイベント情報メディア。'
+					: 'A Tokyo business-event media built for inbound business travelers and attendees.'}
 			</p>
-			<div class="mt-12 flex flex-col sm:flex-row gap-4">
-				<a href={`${prefix}/venue`} class="btn-brand">
-					{lang === 'ja' ? '会場を見る' : 'Explore Venues'}
+			<div class="mt-10 md:mt-12 flex flex-col sm:flex-row gap-4">
+				<a
+					href={`${prefix}/venue`}
+					class="inline-flex items-center justify-center gap-2 bg-white text-[#1D4F91] px-8 py-4 text-[14px] font-semibold tracking-[0.08em] uppercase hover:bg-[#E8EEF7] transition-colors no-underline"
+				>
+					{lang === 'ja' ? '会場を探す' : 'Explore Venues'}
 					<span aria-hidden="true">→</span>
 				</a>
-				<a href={`${prefix}/event`} class="btn-outline">
-					{lang === 'ja' ? 'イベントを探す' : 'Find Events'}
+				<a
+					href={`${prefix}/event`}
+					class="inline-flex items-center justify-center gap-2 border border-white/80 text-white px-8 py-4 text-[14px] font-semibold tracking-[0.08em] uppercase hover:bg-white hover:text-[#1D4F91] transition-colors no-underline"
+				>
+					{lang === 'ja' ? 'イベントを見る' : 'Find Events'}
 					<span aria-hidden="true">→</span>
 				</a>
 			</div>
-		</div>
-	</div>
-
-	<div class="relative border-t border-[#E5E5E5] bg-white/70 backdrop-blur-sm">
-		<div class="max-w-[1200px] mx-auto px-6 py-4 flex flex-wrap items-center gap-x-8 gap-y-2 text-[12px] tracking-[0.2em] text-[#6B6B6B] uppercase">
-			<span class="text-[#1D4F91] font-medium">{lang === 'ja' ? '東京 TOKYO' : 'TOKYO'}</span>
-			<span>{lang === 'ja' ? 'Venues · 会場' : 'Venues'}</span>
-			<span class="text-[#E5E5E5]">·</span>
-			<span>{lang === 'ja' ? 'Events · イベント' : 'Events'}</span>
-			<span class="text-[#E5E5E5]">·</span>
-			<span>{lang === 'ja' ? 'Hotels · ホテル' : 'Hotels'}</span>
-			<span class="text-[#E5E5E5]">·</span>
-			<span>{lang === 'ja' ? 'Guides · ガイド' : 'Guides'}</span>
 		</div>
 	</div>
 </section>

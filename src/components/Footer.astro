@@ -1,5 +1,5 @@
 ---
-import { t, type Lang } from '../i18n';
+import { t, CATEGORIES, type Lang } from '../i18n';
 
 interface Props {
 	lang?: Lang;
@@ -7,45 +7,100 @@ interface Props {
 const { lang = 'ja' } = Astro.props;
 const tr = t(lang);
 const prefix = lang === 'en' ? '/en' : '';
+const contactHref = `${prefix}/contact`;
+
+const categoryLinks = CATEGORIES.map((c) => ({ href: `${prefix}/${c}`, label: tr.nav[c] }));
 ---
 
-<footer class="bg-[#FAFAF7] border-t border-[#E5E5E5] mt-auto">
-	<div class="max-w-[1200px] mx-auto px-6 pt-20 pb-12">
-		<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-14">
+<footer class="mt-auto bg-[#1D4F91] text-white">
+	<!-- Big CONTACT banner -->
+	<section class="border-b border-white/15">
+		<div class="max-w-[1200px] mx-auto px-6 py-20 md:py-24 flex flex-col md:flex-row md:items-end md:justify-between gap-10">
 			<div>
+				<p class="text-[12px] md:text-[13px] tracking-[0.4em] uppercase font-semibold text-white/80 mb-5">Contact</p>
+				<div class="h-[4px] w-[56px] bg-white mb-6" aria-hidden="true"></div>
+				<h2 class="text-[34px] md:text-[48px] lg:text-[56px] font-bold leading-[1.15] tracking-[-0.02em]">
+					{lang === 'ja' ? 'お問い合わせ' : 'Get in Touch'}
+				</h2>
+				<p class="mt-5 text-[15px] md:text-[16px] text-white/80 leading-[1.8] max-w-xl">
+					{lang === 'ja'
+						? '会場・イベント掲載、広告出稿、取材依頼などはお気軽にご相談ください。'
+						: 'For venue listings, event features, partnerships, or press inquiries — we\'d love to hear from you.'}
+				</p>
+			</div>
+			<a
+				href={contactHref}
+				class="inline-flex items-center gap-3 bg-white text-[#1D4F91] px-9 py-5 text-[14px] font-semibold tracking-[0.12em] uppercase hover:bg-[#E8EEF7] transition-colors no-underline whitespace-nowrap self-start md:self-auto"
+			>
+				{lang === 'ja' ? 'お問い合わせする' : 'Contact Us'}
+				<span aria-hidden="true">→</span>
+			</a>
+		</div>
+	</section>
+
+	<!-- Columns -->
+	<section>
+		<div class="max-w-[1200px] mx-auto px-6 py-16 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+			<!-- Brand block -->
+			<div class="md:col-span-5">
 				<a href={prefix || '/'} class="inline-block no-underline" aria-label="BizinTokyo">
 					<img
 						src="/images/logo/bizintokyo-logo.svg"
 						alt="BizinTokyo"
-						class="h-12 md:h-14 w-auto block"
+						class="h-14 md:h-16 w-auto block invert brightness-0"
+						style="filter: brightness(0) invert(1);"
 						width="500"
 						height="400"
 						loading="lazy"
 					/>
 				</a>
-				<p class="mt-6 text-[14px] text-[#6B6B6B] leading-relaxed max-w-sm">
+				<p class="mt-7 text-[15px] text-white/85 leading-[1.85] max-w-md">
 					{lang === 'ja'
-						? '東京のビジネスイベントを、もっと深く、もっとスマートに。'
-						: 'Your gateway to business events in Tokyo — deeper, smarter.'}
+						? '東京のビジネスイベントを、もっと深く、もっとスマートに。訪日ビジネストラベラーのための情報メディア。'
+						: 'Tokyo\'s business-event media built for inbound travelers — deeper context, smarter decisions.'}
 				</p>
-				<div class="mt-8 text-[13px] text-[#6B6B6B] flex gap-5">
-					<a href="https://www.conec-tando.com/policy" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.privacy}</a>
-					<span class="text-[#E5E5E5]">|</span>
-					<a href="https://www.conec-tando.com/about" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.company}</a>
-				</div>
+				<p class="mt-6 text-[13px] text-white/70 leading-[1.8]">
+					{lang === 'ja' ? (
+						<>運営会社は <a href="https://www.conec-tando.com/" target="_blank" rel="noopener" class="underline decoration-white/40 underline-offset-4 hover:decoration-white hover:text-white transition-colors">Conectando Inc.</a> をご覧ください。</>
+					) : (
+						<>Operated by <a href="https://www.conec-tando.com/" target="_blank" rel="noopener" class="underline decoration-white/40 underline-offset-4 hover:decoration-white hover:text-white transition-colors">Conectando Inc.</a></>
+					)}
+				</p>
 			</div>
-			<div>
-				<h3 class="text-[12px] tracking-[0.2em] text-[#1D4F91] font-medium mb-5 uppercase">{tr.footer.serviceTitle}</h3>
-				<ul class="space-y-3 text-[15px] text-[#1A1A1A] font-normal">
-					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.eventManagement}</a></li>
-					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.japanTour}</a></li>
-					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">{tr.footer.japanExpansion}</a></li>
+
+			<!-- Categories -->
+			<div class="md:col-span-4">
+				<h3 class="text-[12px] tracking-[0.28em] font-semibold uppercase mb-5 text-white/80">Categories</h3>
+				<div class="h-[2px] w-[32px] bg-white/50 mb-5" aria-hidden="true"></div>
+				<ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-[15px]">
+					{categoryLinks.map((link) => (
+						<li>
+							<a href={link.href} class="text-white/90 hover:text-white no-underline transition-colors">{link.label}</a>
+						</li>
+					))}
+				</ul>
+			</div>
+
+			<!-- Company / Services -->
+			<div class="md:col-span-3">
+				<h3 class="text-[12px] tracking-[0.28em] font-semibold uppercase mb-5 text-white/80">Company</h3>
+				<div class="h-[2px] w-[32px] bg-white/50 mb-5" aria-hidden="true"></div>
+				<ul class="space-y-3 text-[15px]">
+					<li><a href="https://www.conec-tando.com/" target="_blank" rel="noopener" class="text-white/90 hover:text-white no-underline transition-colors">Conectando Inc.</a></li>
+					<li><a href="https://www.conec-tando.com/service" target="_blank" rel="noopener" class="text-white/90 hover:text-white no-underline transition-colors">{tr.footer.serviceTitle === 'SERVICE' ? (lang === 'ja' ? 'サービス' : 'Services') : tr.footer.serviceTitle}</a></li>
+					<li><a href="https://www.conec-tando.com/about" target="_blank" rel="noopener" class="text-white/90 hover:text-white no-underline transition-colors">{tr.footer.company}</a></li>
+					<li><a href="https://www.conec-tando.com/policy" target="_blank" rel="noopener" class="text-white/90 hover:text-white no-underline transition-colors">{tr.footer.privacy}</a></li>
+					<li><a href={contactHref} class="text-white/90 hover:text-white no-underline transition-colors">{tr.nav.contact}</a></li>
 				</ul>
 			</div>
 		</div>
-		<div class="mt-16 pt-6 border-t border-[#E5E5E5] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[12px] text-[#6B6B6B] tracking-wide">
+	</section>
+
+	<!-- Bottom bar -->
+	<div class="border-t border-white/15">
+		<div class="max-w-[1200px] mx-auto px-6 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[12px] text-white/70 tracking-wider">
 			<span>{tr.footer.copyright}</span>
-			<a href="https://www.conec-tando.com/" target="_blank" rel="noopener" class="hover:text-[#1D4F91] no-underline transition-colors">www.conec-tando.com</a>
+			<a href="https://www.conec-tando.com/" target="_blank" rel="noopener" class="hover:text-white no-underline transition-colors">www.conec-tando.com</a>
 		</div>
 	</div>
 </footer>

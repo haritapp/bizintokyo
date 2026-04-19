@@ -4,29 +4,43 @@ interface Props {
 	subtitle?: string;
 	viewAll?: { href: string; label: string };
 	align?: 'left' | 'center';
+	invert?: boolean;
 }
-const { title, subtitle, viewAll, align = 'left' } = Astro.props;
+const { title, subtitle, viewAll, align = 'left', invert = false } = Astro.props;
+const brand = invert ? '#FFFFFF' : '#1D4F91';
+const brandBody = invert ? '#FFFFFF' : '#1D4F91';
+const bodyText = invert ? '#FFFFFF' : '#1A1A1A';
 ---
 
 <div class:list={[
-	'flex items-end justify-between gap-6 mb-12 md:mb-14',
+	'flex items-end justify-between gap-6 mb-14 md:mb-16',
 	align === 'center' ? 'flex-col items-center text-center' : '',
 ]}>
-	<div class="flex items-stretch gap-5">
-		<div class="w-[3px] bg-[#1D4F91] flex-shrink-0" aria-hidden="true"></div>
-		<div>
-			<h2 class="text-[30px] md:text-[36px] lg:text-[40px] font-normal text-[#1A1A1A] leading-[1.2] tracking-[-0.01em]">{title}</h2>
-			{subtitle && (
-				<p class="mt-2 text-[13px] md:text-[14px] tracking-[0.22em] text-[#6B6B6B] uppercase font-medium">{subtitle}</p>
-			)}
-		</div>
+	<div class:list={[align === 'center' ? 'text-center' : '']}>
+		{subtitle && (
+			<p
+				class="text-[13px] md:text-[14px] font-semibold uppercase tracking-[0.32em] mb-4"
+				style={`color:${brand};`}
+			>{subtitle}</p>
+		)}
+		<div
+			class="h-[4px] w-[56px] mb-6"
+			style={`background:${brand};` + (align === 'center' ? 'margin-left:auto;margin-right:auto;' : '')}
+			aria-hidden="true"
+		></div>
+		<h2
+			class="text-[32px] md:text-[44px] lg:text-[52px] font-bold leading-[1.15] tracking-[-0.02em]"
+			style={`color:${brandBody};`}
+		>{title}</h2>
 	</div>
 	{viewAll && (
 		<a
 			href={viewAll.href}
-			class="text-[13px] tracking-[0.1em] uppercase font-medium text-[#1D4F91] hover:text-[#153A6B] no-underline transition-colors whitespace-nowrap flex items-center gap-1.5"
+			class="text-[13px] tracking-[0.2em] uppercase font-semibold no-underline transition-colors whitespace-nowrap flex items-center gap-2.5 group"
+			style={`color:${brand};`}
 		>
-			{viewAll.label} <span class="transition-transform hover:translate-x-1">→</span>
+			{viewAll.label}
+			<span aria-hidden="true" class="inline-block w-2 h-2 rounded-full transition-transform group-hover:translate-x-1" style={`background:${brand};`}></span>
 		</a>
 	)}
 </div>

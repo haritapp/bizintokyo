@@ -19,12 +19,13 @@ const enPath = isEnPath ? path : (path === '/' ? '/en/' : `/en${path}`);
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#E5E5E5]">
+	<div class="h-[6px] bg-[#1D4F91]" aria-hidden="true"></div>
 	<div class="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between gap-6">
 		<a href={homeHref} class="flex items-center no-underline" aria-label="BizinTokyo">
 			<img
 				src="/images/logo/bizintokyo-logo.svg"
 				alt="BizinTokyo"
-				class="h-9 md:h-12 w-auto block"
+				class="h-10 md:h-12 w-auto block"
 				width="500"
 				height="400"
 				loading="eager"
@@ -36,9 +37,9 @@ const enPath = isEnPath ? path : (path === '/' ? '/en/' : `/en${path}`);
 			))}
 		</nav>
 		<div class="hidden lg:flex items-center gap-3 text-[13px] tracking-wider">
-			<a href={jaPath} class={lang === 'ja' ? 'text-[#1D4F91] font-medium' : 'text-[#6B6B6B] hover:text-[#1D4F91]'}>JA</a>
+			<a href={jaPath} class={lang === 'ja' ? 'text-[#1D4F91] font-semibold' : 'text-[#6B6B6B] hover:text-[#1D4F91]'}>JA</a>
 			<span class="text-[#E5E5E5]">|</span>
-			<a href={enPath} class={lang === 'en' ? 'text-[#1D4F91] font-medium' : 'text-[#6B6B6B] hover:text-[#1D4F91]'}>EN</a>
+			<a href={enPath} class={lang === 'en' ? 'text-[#1D4F91] font-semibold' : 'text-[#6B6B6B] hover:text-[#1D4F91]'}>EN</a>
 		</div>
 		<button id="hamburger" class="lg:hidden text-2xl text-[#1A1A1A] leading-none font-light" aria-label="Menu">≡</button>
 	</div>
@@ -48,9 +49,9 @@ const enPath = isEnPath ? path : (path === '/' ? '/en/' : `/en${path}`);
 				<a href={link.href} class="text-[#1A1A1A] hover:text-[#1D4F91] no-underline py-1.5">{link.label}</a>
 			))}
 			<div class="flex items-center gap-3 text-[13px] tracking-wider pt-3 border-t border-[#E5E5E5] mt-2">
-				<a href={jaPath} class={lang === 'ja' ? 'text-[#1D4F91] font-medium' : 'text-[#6B6B6B]'}>JA</a>
+				<a href={jaPath} class={lang === 'ja' ? 'text-[#1D4F91] font-semibold' : 'text-[#6B6B6B]'}>JA</a>
 				<span class="text-[#E5E5E5]">|</span>
-				<a href={enPath} class={lang === 'en' ? 'text-[#1D4F91] font-medium' : 'text-[#6B6B6B]'}>EN</a>
+				<a href={enPath} class={lang === 'en' ? 'text-[#1D4F91] font-semibold' : 'text-[#6B6B6B]'}>EN</a>
 			</div>
 		</div>
 	</nav>
