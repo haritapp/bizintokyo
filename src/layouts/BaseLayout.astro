@@ -135,6 +135,21 @@ if (breadcrumb && breadcrumb.length > 0) {
 		/>
 
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLdNodes)} />
+
+		<!-- Google tag (gtag.js) - GA4 -->
+		<script is:inline>
+		  (function () {
+		    if (location.hostname !== 'bizintokyo.com') return;
+		    var s = document.createElement('script');
+		    s.async = true;
+		    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0LL3G09FZK';
+		    document.head.appendChild(s);
+		    window.dataLayer = window.dataLayer || [];
+		    window.gtag = function () { window.dataLayer.push(arguments); };
+		    window.gtag('js', new Date());
+		    window.gtag('config', 'G-0LL3G09FZK');
+		  })();
+		</script>
 	</head>
 	<body class="bg-white text-[#1A1A1A] font-sans font-normal min-h-screen flex flex-col antialiased text-[17px]">
 		<Header lang={lang} />
